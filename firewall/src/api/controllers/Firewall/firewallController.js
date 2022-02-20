@@ -1,5 +1,5 @@
-const FirewallDropResource = require('../../resource/FirewallDropResources');
-const FirewallAcceptResource = require('../../resource/FirewallAcceptResource');
+const FirewallDropResource = require('../../service/FirewallDropService');
+const FirewallAcceptResource = require('../../service/FirewallAcceptService');
 
 module.exports = {
   async dropRulesIp(req, res) {

@@ -1,48 +1,41 @@
-const winston = require('winston');
 const path = require('path');
 
-const { combine } = winston.format;
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, label, printf, json } = format;
 
-const options = {
-  file: {
-    level: 'debug',
-    filename: path.join(__dirname, '..', '..', 'logs', 'logs.log'),
-    handleExceptions: true,
-    json: true,
-    maxsize: 5242880, // 5MB
-    maxFiles: 1,
-    colorize: false,
-  },
-  console: {
-    level: 'debug',
-    handleExceptions: true,
-    json: false,
-    colorize: true,
-  },
-};
+const logFormat = printf(({ level, message, label, timestamp, stack }) => {
+  return `${timestamp}  [${label}] ${level}: ${stack || message}`;
+});
 
-const colorizer = winston.format.colorize();
-const logger = winston.createLogger({
-  levels: {
-    error: 0,
-    warn: 1,
-    info: 2,
-    debug: 4,
-  },
-  format: combine(
-    winston.format.printf((msg) => colorizer.colorize(msg.level,
-      `${msg.message}`)),
+const logger = createLogger({
+  format: format.combine(
+    timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    json(),
+    logFormat
   ),
+  defaultMeta: { service: 'http-service' },
   transports: [
-    new (winston.transports.Console)(options.console),
-    new (winston.transports.File)(options.file),
+    new transports.Console({
+      format: format.combine(
+        format.colorize(),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        json(),
+        logFormat)
+    }),
+    new transports.File({
+      filename: path.join(__dirname, '..', '..', 'logs', 'logs.log'),
+      handleExceptions: true,
+      json: true,
+      maxsize: 5242880, // 5MB
+      maxFiles: 1,
+    })
   ],
 });
 
 logger.stream = {
-  write(message) {
-    logger.info(message);
-  },
+  write: function (message) {
+    logger.info(message, { label: "http-service" });
+  }
 };
 
 module.exports = logger;

@@ -1,4 +1,8 @@
 module.exports = {
   homePage: 'API do Firewall está UP',
-  sucessRules: 'New Rule create with sucess'
+  sucessRules: 'New Rule create with sucess',
+  hostCreateSucess: 'new host created in zabbix successfully',
+  hostCreateFail: 'There was an error creating new host',
+  tokenCreateSucess: 'New token created in zabbix successfully',
+  tokenCreateFail: 'There was an error creating new token',
 };

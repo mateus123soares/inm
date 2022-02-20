@@ -26,6 +26,7 @@ app.use(bodyparser.json());
 
 app.use('/', require('./router/index'));
 app.use('/firewall', require('./router/firewall'));
+app.use('/zabbix', require('./router/zabbix'));
 
 app.use(errors());
 
