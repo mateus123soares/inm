@@ -7,14 +7,18 @@ const logger = require('../../../config/winston')
 module.exports = {
     async createDashboard(data) {
         const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname);
-        //const buff = new Buffer(`${grafanaUser}:${grafanaPassword}`);
-        //const base64data = buff.toString('base64');
+        // create a buffer
+        const buff = Buffer.from(`${grafanaUser}:${grafanaPassword}`, 'utf-8');
+
+        // decode buffer as Base64
+        const base64 = buff.toString('base64');
+
         const options = {
             method: 'POST',
             url: `${grafanaHost}/api/dashboards/db`,
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": `Basic YWRtaW46YWRtaW4=`
+                "Authorization": `Basic ${base64}`
             },
             data: dashboardTemplate
         };

@@ -1,7 +1,7 @@
 name: "grafana"
-arch: "${ARCH}"
+arch: "amd64"
 platform: "linux"
-version: "${VERSION}"
+version: "1.0.1"
 section: "default"
 priority: "extra"
 replaces:
@@ -18,14 +18,33 @@ description: |
 vendor: "Grafana"
 homepage: "https://grafana.com"
 license: "Apache 2"
-bindir: "/usr/sbin"
-files:
-  "./bin/grafana-server": "/usr/sbin/grafana-server"
-  "./bin/grafana-cli": "/usr/sbin/grafana-cli"
-config_files:
-  ./packaging/deb/init.d/grafana-server: "/etc/init.d/grafana-server"
-  ./packaging/deb/default/grafana-server: "/etc/default/grafana-server"
-  ./packaging/deb/systemd/grafana-server.service: "/usr/lib/systemd/system/grafana-server.service"
+contents:
+  - src: ./conf
+    dst: /usr/share/grafana/conf
+  - src: ./plugins-bundled
+    dst: /usr/share/grafana/plugins-bundled
+  - src: ./bin
+    dst: /usr/share/grafana/bin
+  - src: ./scripts
+    dst: /usr/share/grafana/scripts
+  - src: ./public
+    dst: /usr/share/grafana/public
+  - src: ./bin/grafana-server
+    dst: /usr/sbin/grafana-server
+  - src: ./bin/grafana-cli
+    dst: /usr/sbin/grafana-cli
+  - src: ./conf/grafana.ini
+    dst: /etc/grafana/grafana.ini
+    type: config
+  - src: ./packaging/deb/init.d/grafana-server
+    dst: /etc/init.d/grafana-server
+    type: config
+  - src: ./packaging/deb/default/grafana-server
+    dst: /etc/default/grafana-server
+    type: config
+  - src: ./packaging/deb/systemd/grafana-server.service
+    dst: /usr/lib/systemd/system/grafana-server.service
+    type: config
 overrides:
   rpm:
     scripts:
