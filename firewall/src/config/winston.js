@@ -1,17 +1,20 @@
 const path = require('path');
 
 const { createLogger, format, transports } = require('winston');
-const { combine, timestamp, label, printf, json } = format;
 
-const logFormat = printf(({ level, message, label, timestamp, stack }) => {
-  return `${timestamp}  [${label}] ${level}: ${stack || message}`;
-});
+const {
+  combine, timestamp, label, printf, json,
+} = format;
+
+const logFormat = printf(({
+  level, message, label, timestamp, stack,
+}) => `${timestamp}  [${label}] ${level}: ${stack || message}`);
 
 const logger = createLogger({
   format: format.combine(
     timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     json(),
-    logFormat
+    logFormat,
   ),
   defaultMeta: { service: 'http-service' },
   transports: [
@@ -20,7 +23,8 @@ const logger = createLogger({
         format.colorize(),
         timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         json(),
-        logFormat)
+        logFormat,
+      ),
     }),
     new transports.File({
       filename: path.join(__dirname, '..', '..', 'logs', 'logs.log'),
@@ -28,14 +32,14 @@ const logger = createLogger({
       json: true,
       maxsize: 5242880, // 5MB
       maxFiles: 1,
-    })
+    }),
   ],
 });
 
 logger.stream = {
-  write: function (message) {
-    logger.info(message, { label: "http-service" });
-  }
+  write(message) {
+    logger.info(message, { label: 'http-service' });
+  },
 };
 
 module.exports = logger;
