@@ -3,5 +3,8 @@ module.exports = {
     zabbixUsername: 'Admin',
     zabbixpassword: 'zabbix',
     zabbixTemplateId: 10001,
-    zabbixGroupId: 4
+    zabbixGroupId: 4,
+    grafanaHost: 'http://localhost:3000',
+    grafanaUser: 'admin',
+    grafanaPassword: 'admin'
 };

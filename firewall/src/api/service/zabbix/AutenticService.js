@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { tokenCreateSucess, tokenCreateFail } = require('../../../constants/messages');
-const { zabbixHost, zabbixUsername, zabbixpassword } = require('../../../constants/zabbix');
+const { zabbixHost, zabbixUsername, zabbixpassword } = require('../../../config/credentials');
 const logger = require('../../../config/winston')
 
 module.exports = {

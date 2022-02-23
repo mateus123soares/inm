@@ -5,4 +5,6 @@ module.exports = {
   hostCreateFail: 'There was an error creating new host',
   tokenCreateSucess: 'New token created in zabbix successfully',
   tokenCreateFail: 'There was an error creating new token',
+  dashboardCreateSucess: 'New dashboard created in grafana successfully',
+  dashboardCreateFail: 'There was an error creating new dashboard',
 };
