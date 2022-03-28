@@ -17,12 +17,13 @@
     "express": "^4.17.1",
     "helmet": "^3.22.0",
     "morgan": "^1.10.0",
+    "node-schedule": "^2.1.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "commitizen": "^4.2.4",
+    "commitizen": "^1.0.4",
     "cz-conventional-changelog": "^3.0.1",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",

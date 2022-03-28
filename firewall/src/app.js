@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+require('./events/apiAlert');
 const express = require('express');
 const morgan = require('morgan');
 const bodyparser = require('body-parser');

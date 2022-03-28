@@ -7,4 +7,8 @@ module.exports = {
   tokenCreateFail: 'There was an error creating new token',
   dashboardCreateSucess: 'New dashboard created in grafana successfully',
   dashboardCreateFail: 'There was an error creating new dashboard',
+  getAlertSucess: 'Grafana get API alerts successfully',
+  getAlertFail: 'Grafana get API alerts Error',
+  cronJobNotify: 'Running cronJob GET API Alerts Grafana',
+  cronJobError: 'Error to execute cronjob request'
 };

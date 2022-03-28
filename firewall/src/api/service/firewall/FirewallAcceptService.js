@@ -1,5 +1,5 @@
 const fs = require('fs');
-const message = require('../../constants/messages');
+const message = require('../../../constants/messages');
 
 module.exports = {
   async acceptRulesIp(rule) {
