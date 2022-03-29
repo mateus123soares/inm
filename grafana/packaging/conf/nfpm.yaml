@@ -1,7 +1,7 @@
 name: "grafana"
 arch: "amd64"
 platform: "linux"
-version: "1.0.1"
+version: "1.15"
 section: "default"
 priority: "extra"
 replaces:
@@ -11,7 +11,6 @@ provides:
 - grafana-cli
 depends:
 - adduser
-- libfontconfig1
 maintainer: "<contact@grafana.com>"
 description: |
   Grafana
@@ -19,23 +18,20 @@ vendor: "Grafana"
 homepage: "https://grafana.com"
 license: "Apache 2"
 contents:
-  - src: ./conf
-    dst: /usr/share/grafana/conf
-  - src: ./plugins-bundled
-    dst: /usr/share/grafana/plugins-bundled
-  - src: ./bin
-    dst: /usr/share/grafana/bin
-  - src: ./scripts
-    dst: /usr/share/grafana/scripts
   - src: ./public
     dst: /usr/share/grafana/public
+  - src: ./plugins-bundled
+    dst: /usr/share/grafana/plugins-bundled
+  - src: ./conf/sample.ini
+    dst: /etc/grafana/grafana.ini
+  - src: ./conf/
+    dst: /usr/share/grafana/conf/
+  - src: ./conf/
+    dst: /etc/grafana/conf/
   - src: ./bin/grafana-server
     dst: /usr/sbin/grafana-server
   - src: ./bin/grafana-cli
     dst: /usr/sbin/grafana-cli
-  - src: ./conf/grafana.ini
-    dst: /etc/grafana/grafana.ini
-    type: config
   - src: ./packaging/deb/init.d/grafana-server
     dst: /etc/init.d/grafana-server
     type: config
@@ -44,6 +40,9 @@ contents:
     type: config
   - src: ./packaging/deb/systemd/grafana-server.service
     dst: /usr/lib/systemd/system/grafana-server.service
+    type: config
+  - src: ./provision/plugins.yaml
+    dst: /etc/grafana/provisioning/plugins/plugins.yaml
     type: config
 overrides:
   rpm:

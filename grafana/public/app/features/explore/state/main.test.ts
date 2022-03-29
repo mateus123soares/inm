@@ -11,10 +11,10 @@ import { locationService } from '@grafana/runtime';
 const getNavigateToExploreContext = async (openInNewWindow?: (url: string) => void) => {
   const url = '/explore';
   const panel: Partial<PanelModel> = {
-    datasource: 'mocked datasource',
+    datasource: { uid: 'mocked datasource' },
     targets: [{ refId: 'A' }],
   };
-  const datasource = new MockDataSourceApi(panel.datasource!);
+  const datasource = new MockDataSourceApi(panel.datasource!.uid!);
   const get = jest.fn().mockResolvedValue(datasource);
   const getDataSourceSrv = jest.fn().mockReturnValue({ get });
   const getTimeSrv = jest.fn();
@@ -38,7 +38,7 @@ const getNavigateToExploreContext = async (openInNewWindow?: (url: string) => vo
 describe('navigateToExplore', () => {
   describe('when navigateToExplore thunk is dispatched', () => {
     describe('and openInNewWindow is undefined', () => {
-      const openInNewWindow: (url: string) => void = (undefined as unknown) as (url: string) => void;
+      const openInNewWindow: (url: string) => void = undefined as unknown as (url: string) => void;
       it('then it should dispatch correct actions', async () => {
         const { url } = await getNavigateToExploreContext(openInNewWindow);
         expect(locationService.getLocation().pathname).toEqual(url);
@@ -118,50 +118,50 @@ describe('Explore reducer', () => {
   describe('split view', () => {
     describe('split close', () => {
       it('should keep right pane as left when left is closed', () => {
-        const leftItemMock = ({
+        const leftItemMock = {
           containerWidth: 100,
-        } as unknown) as ExploreItemState;
+        } as unknown as ExploreItemState;
 
-        const rightItemMock = ({
+        const rightItemMock = {
           containerWidth: 200,
-        } as unknown) as ExploreItemState;
+        } as unknown as ExploreItemState;
 
-        const initialState = ({
+        const initialState = {
           left: leftItemMock,
           right: rightItemMock,
-        } as unknown) as ExploreState;
+        } as unknown as ExploreState;
 
         // closing left item
         reducerTester<ExploreState>()
           .givenReducer(exploreReducer, initialState)
           .whenActionIsDispatched(splitCloseAction({ itemId: ExploreId.left }))
-          .thenStateShouldEqual(({
+          .thenStateShouldEqual({
             left: rightItemMock,
             right: undefined,
-          } as unknown) as ExploreState);
+          } as unknown as ExploreState);
       });
       it('should reset right pane when it is closed ', () => {
-        const leftItemMock = ({
+        const leftItemMock = {
           containerWidth: 100,
-        } as unknown) as ExploreItemState;
+        } as unknown as ExploreItemState;
 
-        const rightItemMock = ({
+        const rightItemMock = {
           containerWidth: 200,
-        } as unknown) as ExploreItemState;
+        } as unknown as ExploreItemState;
 
-        const initialState = ({
+        const initialState = {
           left: leftItemMock,
           right: rightItemMock,
-        } as unknown) as ExploreState;
+        } as unknown as ExploreState;
 
         // closing left item
         reducerTester<ExploreState>()
           .givenReducer(exploreReducer, initialState)
           .whenActionIsDispatched(splitCloseAction({ itemId: ExploreId.right }))
-          .thenStateShouldEqual(({
+          .thenStateShouldEqual({
             left: leftItemMock,
             right: undefined,
-          } as unknown) as ExploreState);
+          } as unknown as ExploreState);
       });
     });
   });
@@ -178,9 +178,9 @@ export const setup = (urlStateOverrides?: any) => {
   };
   const urlState: ExploreUrlState = { ...urlStateDefaults, ...urlStateOverrides };
   const serializedUrlState = serializeStateToUrlParam(urlState);
-  const initialState = ({
+  const initialState = {
     split: false,
-  } as unknown) as ExploreState;
+  } as unknown as ExploreState;
 
   return {
     initialState,

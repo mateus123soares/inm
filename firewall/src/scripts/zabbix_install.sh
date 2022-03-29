@@ -154,4 +154,38 @@ $IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
 sudo mv ./zabbix.conf.php /etc/zabbix/web/
 sudo chmod 644 /etc/zabbix/web/zabbix.conf.php
 
+##########################
+#### INSTALAÇÃO NTOP ###
+##########################
+
+echo -e "${GREEN}Instalando NTOP [0/2]${ENDCOLOR}"
+echo -e "${GREEN}Instalando dependencias e realizando configuracao [1/2]${ENDCOLOR}"
+
+sudo apt-get install software-properties-common wget -y
+sudo add-apt-repository universe 
+sudo wget https://packages.ntop.org/apt-stable/20.04/all/apt-ntop-stable.deb 
+
+echo -e "${GREEN}Instalando NTOP [2/2]${ENDCOLOR}"
+
+sudo apt install ./apt-ntop-stable.deb -y
+sudo apt-get clean all
+sudo apt-get update
+sudo apt-get install pfring-dkms nprobe ntopng n2disk cento -y
+
+echo -e "${GREEN}Instalando INFLUXDB [0/2]${ENDCOLOR}"
+echo -e "${GREEN}Instalando dependencias e realizando configuracao [1/2]${ENDCOLOR}"
+
+sudo wget -qO- https://repos.influxdata.com/influxdb.key | gpg --dearmor > /etc/apt/trusted.gpg.d/influxdb.gpg
+export DISTRIB_ID=$(lsb_release -si); export DISTRIB_CODENAME=$(lsb_release -sc)
+sudo echo "deb [signed-by=/etc/apt/trusted.gpg.d/influxdb.gpg] https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" > /etc/apt/sources.list.d/influxdb.list
+
+echo -e "${GREEN}Instalando INFLUXDB [2/2]${ENDCOLOR}"
+
+sudo apt-get update && sudo apt-get install influxdb
+sudo service influxdb start
+
+
 echo -e "${GREEN}Processo de instalação finalizado com sucesso.${ENDCOLOR}"
+
+
+

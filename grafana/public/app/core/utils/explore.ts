@@ -8,28 +8,28 @@ import {
   DataQueryRequest,
   DataSourceApi,
   dateMath,
+  DateTime,
   DefaultTimeZone,
+  ExploreUrlState,
   HistoryItem,
   IntervalValues,
+  isDateTime,
   LogsDedupStrategy,
   LogsSortOrder,
+  rangeUtil,
   RawTimeRange,
   TimeFragment,
   TimeRange,
   TimeZone,
   toUtc,
   urlUtil,
-  ExploreUrlState,
-  rangeUtil,
-  DateTime,
-  isDateTime,
 } from '@grafana/data';
 import store from 'app/core/store';
 import { v4 as uuidv4 } from 'uuid';
 import { getNextRefIdChar } from './query';
 // Types
 import { RefreshPicker } from '@grafana/ui';
-import { ExploreId, QueryOptions, QueryTransaction } from 'app/types/explore';
+import { EXPLORE_GRAPH_STYLES, ExploreGraphStyle, ExploreId, QueryOptions, QueryTransaction } from 'app/types/explore';
 import { config } from '../config';
 import { TimeSrv } from 'app/features/dashboard/services/TimeSrv';
 import { DataSourceSrv } from '@grafana/runtime';
@@ -99,11 +99,11 @@ export async function getExploreUrl(args: GetExploreUrlArguments): Promise<strin
         ...state,
         datasource: exploreDatasource.name,
         context: 'explore',
-        queries: exploreTargets.map((t) => ({ ...t, datasource: exploreDatasource.name })),
+        queries: exploreTargets.map((t) => ({ ...t, datasource: exploreDatasource.getRef() })),
       };
     }
 
-    const exploreState = JSON.stringify({ ...state, originPanelId: panel.id });
+    const exploreState = JSON.stringify(state);
     url = urlUtil.renderUrl('/explore', { left: exploreState });
   }
 
@@ -201,6 +201,21 @@ export const safeStringifyValue = (value: any, space?: number) => {
   return '';
 };
 
+const DEFAULT_GRAPH_STYLE: ExploreGraphStyle = 'lines';
+// we use this function to take any kind of data we loaded
+// from an external source (URL, localStorage, whatever),
+// and extract the graph-style from it, or return the default
+// graph-style if we are not able to do that.
+// it is important that this function is able to take any form of data,
+// (be it objects, or arrays, or booleans or whatever),
+// and produce a best-effort graphStyle.
+// note that typescript makes sure we make no mistake in this function.
+// we do not rely on ` as ` or ` any `.
+export const toGraphStyle = (data: unknown): ExploreGraphStyle => {
+  const found = EXPLORE_GRAPH_STYLES.find((v) => v === data);
+  return found ?? DEFAULT_GRAPH_STYLE;
+};
+
 export function parseUrlState(initial: string | undefined): ExploreUrlState {
   const parsed = safeParseJson(initial);
   const errorResult: any = {
@@ -208,7 +223,6 @@ export function parseUrlState(initial: string | undefined): ExploreUrlState {
     queries: [],
     range: DEFAULT_RANGE,
     mode: null,
-    originPanelId: null,
   };
 
   if (!parsed) {
@@ -230,10 +244,10 @@ export function parseUrlState(initial: string | undefined): ExploreUrlState {
   };
   const datasource = parsed[ParseUrlStateIndex.Datasource];
   const parsedSegments = parsed.slice(ParseUrlStateIndex.SegmentsStart);
-  const queries = parsedSegments.filter((segment) => !isSegment(segment, 'ui', 'originPanelId', 'mode'));
+  const queries = parsedSegments.filter((segment) => !isSegment(segment, 'ui', 'mode', '__panelsState'));
 
-  const originPanelId = parsedSegments.filter((segment) => isSegment(segment, 'originPanelId'))[0];
-  return { datasource, queries, range, originPanelId };
+  const panelsState = parsedSegments.find((segment) => isSegment(segment, '__panelsState'))?.__panelsState;
+  return { datasource, queries, range, panelsState };
 }
 
 export function generateKey(index = 0): string {
@@ -340,11 +354,13 @@ export const getQueryKeys = (queries: DataQuery[], datasourceInstance?: DataSour
 };
 
 export const getTimeRange = (timeZone: TimeZone, rawRange: RawTimeRange, fiscalYearStartMonth: number): TimeRange => {
-  return {
-    from: dateMath.parse(rawRange.from, false, timeZone as any, fiscalYearStartMonth)!,
-    to: dateMath.parse(rawRange.to, true, timeZone as any, fiscalYearStartMonth)!,
-    raw: rawRange,
-  };
+  let range = rangeUtil.convertRawToRange(rawRange, timeZone, fiscalYearStartMonth);
+
+  if (range.to.isBefore(range.from)) {
+    range = rangeUtil.convertRawToRange({ from: range.raw.to, to: range.raw.from }, timeZone, fiscalYearStartMonth);
+  }
+
+  return range;
 };
 
 const parseRawTime = (value: string | DateTime): TimeFragment | null => {
