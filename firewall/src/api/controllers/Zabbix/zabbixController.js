@@ -14,4 +14,11 @@ module.exports = {
     const status = await ZabbixHostResource.createNewHost(data);
     return res.status(status.code).json(status);
   },
+  async getHost(req, res) {
+    const data = {
+      hostname: req.body.hostname
+    };
+    const status = await ZabbixHostResource.getHost(data);
+    return res.status(status.code).json(status);
+  },
 };

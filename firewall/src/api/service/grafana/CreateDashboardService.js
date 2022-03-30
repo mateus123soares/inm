@@ -1,11 +1,23 @@
 const axios = require('axios');
-const { dashboardCreateSucess, dashboardCreateFail } = require('../../../constants/messages');
+const { dashboardCreateSucess, dashboardCreateFail, dashboardExists } = require('../../../constants/messages');
 const { grafanaHost, grafanaUser, grafanaPassword } = require('../../../config/credentials');
 const instanceDashboard = require('./InstanceDashboardService');
 const logger = require('../../../config/winston');
+const zabbixService = require('../zabbix/HostService')
 
 module.exports = {
   async createDashboard(data) {
+
+    const getHost = await zabbixService.getHost({ "hostname": `${data.hostname}` })
+
+    if (getHost.result == true) {
+      logger.error(dashboardExists, { label: 'dashboard-service' });
+      return {
+        code: 400,
+        message: dashboardExists,
+      };
+    }
+
     const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname);
     // create a buffer
     const buff = Buffer.from(`${grafanaUser}:${grafanaPassword}`, 'utf-8');
@@ -32,7 +44,6 @@ module.exports = {
         response: responseGrafana.data.result,
       };
     } catch (error) {
-      console.log(error)
       logger.error(dashboardCreateFail, { label: 'dashboard-service' });
       return {
         code: 400,
