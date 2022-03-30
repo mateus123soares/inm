@@ -84,7 +84,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,
@@ -172,7 +172,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,
@@ -530,7 +530,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,
@@ -622,7 +622,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,
@@ -744,7 +744,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,
@@ -789,7 +789,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 hide: false,
                 host: {
@@ -885,7 +885,7 @@ module.exports = {
                 datasource: 'Zabbix',
                 functions: [],
                 group: {
-                  filter: 'Linux servers',
+                  filter: 'Zabbix servers',
                 },
                 host: {
                   filter: `${host}`,

@@ -1,0 +1,14 @@
+O que foi feito 
+
+- Ajustado formulário firewall no novo grafana
+- Testado fluxo completo de instalação
+- Testando API alerta do grafana
+- Automatizando regras conforme alertas
+
+
+O Que fazer ?
+
+- Inserir regras em um banco de dados
+- Testar se dashboard ou host já existe
+- Não criar regras que já existem
+- Remover alertas normalizados

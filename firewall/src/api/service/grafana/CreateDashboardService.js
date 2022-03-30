@@ -22,6 +22,7 @@ module.exports = {
       },
       data: dashboardTemplate,
     };
+
     try {
       const responseGrafana = await axios.request(options);
       logger.info(dashboardCreateSucess, { label: 'dashboard-service' });
@@ -31,6 +32,7 @@ module.exports = {
         response: responseGrafana.data.result,
       };
     } catch (error) {
+      console.log(error)
       logger.error(dashboardCreateFail, { label: 'dashboard-service' });
       return {
         code: 400,
