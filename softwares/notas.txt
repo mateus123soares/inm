@@ -1,0 +1,8 @@
+nfpm package -f packaging/conf/nfpm.yaml --packager deb --target /home/mateus/Documentos/softwares/data
+
+
+Analisando assinatura digital com k-means
+
+baseline bayesiana
+
+modelo BLGBA 
