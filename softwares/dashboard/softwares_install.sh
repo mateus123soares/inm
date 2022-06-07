@@ -91,6 +91,29 @@ sudo sed "/DBPassword=/a DBPassword=$DBPassword" -i /etc/zabbix/zabbix_server.co
 
 sudo sed s/DBName=zabbix/DBName=$DBName/g -i /etc/zabbix/zabbix_server.conf
 
+####################################
+#### CONFIGURAÇÃO NTOP ###
+####################################
+
+echo -e "${GREEN}Instalando dependencias e realizando configuracao [0/3]${ENDCOLOR}"
+
+echo -e "${YELLOW}Instalando dependencias para o ntop [1/3] ${ENDCOLOR}"
+
+sudo apt-get install software-properties-common wget 
+sudo add-apt-repository universe 
+
+echo -e "${YELLOW}Realizando o download do ntop [2/3] ${ENDCOLOR}"
+
+sudo wget https://packages.ntop.org/apt-stable/20.04/all/apt-ntop-stable.deb 
+sudo apt install ./apt-ntop-stable.deb
+sudo apt install ntopng -y
+
+echo -e "${YELLOW}Instalando o ntop [3/3] ${ENDCOLOR}"
+
+sudo apt-get clean all 
+sudo apt-get update 
+sudo apt-get install pfring-dkms nprobe ntopng n2disk cento -y
+
 echo -e "${GREEN}Restartando servicos...${ENDCOLOR}"
 
 sudo systemctl restart zabbix-server zabbix-agent apache2

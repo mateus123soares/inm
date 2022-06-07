@@ -1,6 +1,9 @@
 nfpm package -f packaging/conf/nfpm.yaml --packager deb --target /home/mateus/Documentos/softwares/data
 
 
+CUSTOM_LOG_FORMAT %{SYSLOGTIMESTAMP:ufw_timestamp:ts-syslog} %{SYSLOGHOST:ufw_hostname} %{DATA:ufw_program}: %{DATA:user}%{NUMBER:uptime}%{DATA:user} %{DATA:user}UFW %{WORD:ufw_ac>
+        
+
 Analisando assinatura digital com k-means
 
 baseline bayesiana
