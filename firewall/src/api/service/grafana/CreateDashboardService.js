@@ -7,7 +7,6 @@ const zabbixService = require('../zabbix/HostService')
 
 module.exports = {
   async createDashboard(data) {
-
     const getHost = await zabbixService.getHost({ "hostname": `${data.hostname}` })
 
     if (getHost.result == true) {
@@ -18,7 +17,7 @@ module.exports = {
       };
     }
 
-    const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname);
+    const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname, data.ip);
     // create a buffer
     const buff = Buffer.from(`${grafanaUser}:${grafanaPassword}`, 'utf-8');
 

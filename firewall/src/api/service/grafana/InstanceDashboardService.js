@@ -1,953 +1,1290 @@
 module.exports = {
 
-  instanceDashboard(name, host) {
+  instanceDashboard(name, host, ip) {
     const dashboard = {
       Dashboard: {
-        annotations: {
-          list: [
+        "annotations": {
+          "list": [
             {
-              builtIn: 1,
-              datasource: '-- Grafana --',
-              enable: true,
-              hide: true,
-              iconColor: 'rgba(0, 211, 255, 1)',
-              name: 'Annotations & Alerts',
-              target: {
-                limit: 100,
-                matchAny: false,
-                tags: [],
-                type: 'dashboard',
+              "builtIn": 1,
+              "datasource": {
+                "type": "datasource",
+                "uid": "grafana"
               },
-              type: 'dashboard',
-            },
-          ],
+              "enable": true,
+              "hide": true,
+              "iconColor": "rgba(0, 211, 255, 1)",
+              "name": "Annotations & Alerts",
+              "target": {
+                "limit": 100,
+                "matchAny": false,
+                "tags": [],
+                "type": "dashboard"
+              },
+              "type": "dashboard"
+            }
+          ]
         },
-        editable: true,
-        fiscalYearStartMonth: 0,
-        gnetId: null,
-        graphTooltip: 0,
-        id: null,
-        links: [],
-        liveNow: false,
-        panels: [
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "graphTooltip": 0,
+        "id": null,
+        "iteration": 1654566956151,
+        "links": [],
+        "liveNow": false,
+        "panels": [
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'thresholds',
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
                 },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
-                    {
-                      color: 'green',
-                      value: null,
-                    },
-                    {
-                      color: 'red',
-                      value: 80,
-                    },
-                  ],
+                "custom": {
+                  "axisGridShow": true,
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 7,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineStyle": {
+                    "fill": "solid"
+                  },
+                  "lineWidth": 1,
+                  "pointSize": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "always",
+                  "spanNulls": true,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
                 },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                },
+                "unit": "decbytes"
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 3,
-              w: 24,
-              x: 0,
-              y: 0,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 0
             },
-            id: 19,
-            options: {
-              colorMode: 'value',
-              graphMode: 'area',
-              justifyMode: 'auto',
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 21,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "displayMode": "list",
+                "placement": "bottom"
               },
-              textMode: 'auto',
+              "tooltip": {
+                "mode": "single",
+                "sort": "asc"
+              }
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
-                },
-                host: {
-                  filter: `${host}`,
-                },
-                item: {
-                  filter: 'Host name',
-                },
-                itemTag: {
-                  filter: 'Application: OS',
-                },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
-                },
-                proxy: {
-                  filter: '',
-                },
-                queryType: '2',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
-                },
-                tags: {
-                  filter: '',
-                },
-                trigger: {
-                  filter: '',
-                },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
-                },
-                useCaptureGroups: false,
-              },
-            ],
-            title: 'Server hostname',
-            type: 'stat',
-          },
-          {
-            ackEventColor: 'rgb(56, 219, 156)',
-            ackField: true,
-            ageField: false,
-            customLastChangeFormat: false,
-            datasource: null,
-            descriptionAtNewLine: false,
-            descriptionField: true,
-            fontSize: '100%',
-            gridPos: {
-              h: 8,
-              w: 12,
-              x: 0,
-              y: 3,
-            },
-            highlightBackground: false,
-            highlightNewEvents: false,
-            highlightNewerThan: '1h',
-            hostField: true,
-            hostGroups: false,
-            hostProxy: false,
-            hostTechNameField: false,
-            id: 10,
-            lastChangeFormat: '',
-            layout: 'table',
-            limit: null,
-            markAckEvents: false,
-            okEventColor: 'rgb(56, 189, 113)',
-            pageSize: 10,
-            problemTimeline: true,
-            resizedColumns: [],
-            schemaVersion: 8,
-            severityField: true,
-            showTags: true,
-            sortProblems: 'lastchange',
-            statusField: true,
-            statusIcon: false,
-            targets: [
-              {
-                application: {
-                  filter: '',
-                },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
-                },
-                host: {
-                  filter: `${host}`,
-                },
-                item: {
-                  filter: '',
-                },
-                itemTag: {
-                  filter: '',
-                },
-                options: {
-                  acknowledged: 2,
-                  disableDataAlignment: false,
-                  hostProxy: false,
-                  hostsInMaintenance: false,
-                  limit: 1001,
-                  minSeverity: 0,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  sortProblems: 'default',
-                  useZabbixValueMapping: false,
-                },
-                proxy: {
-                  filter: '',
-                },
-                queryType: '5',
-                refId: 'A',
-                resultFormat: 'time_series',
-                showProblems: 'problems',
-                slaInterval: 'none',
-                slaProperty: {
-                  name: 'Status',
-                  property: 'status',
-                },
-                table: {
-                  skipEmptyValues: false,
-                },
-                tags: {
-                  filter: '',
-                },
-                trigger: {
-                  filter: '',
-                },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 0,
-                },
-              },
-            ],
-            title: 'Zabbix Error Panel',
-            triggerSeverity: [
-              {
-                $$hashKey: 'object:587',
-                color: 'rgb(108, 108, 108)',
-                priority: 0,
-                severity: 'Not classified',
-                show: true,
-              },
-              {
-                $$hashKey: 'object:588',
-                color: 'rgb(120, 158, 183)',
-                priority: 1,
-                severity: 'Information',
-                show: true,
-              },
-              {
-                $$hashKey: 'object:589',
-                color: 'rgb(175, 180, 36)',
-                priority: 2,
-                severity: 'Warning',
-                show: true,
-              },
-              {
-                $$hashKey: 'object:590',
-                color: 'rgb(255, 137, 30)',
-                priority: 3,
-                severity: 'Average',
-                show: true,
-              },
-              {
-                $$hashKey: 'object:591',
-                color: 'rgb(255, 101, 72)',
-                priority: 4,
-                severity: 'High',
-                show: true,
-              },
-              {
-                $$hashKey: 'object:592',
-                color: 'rgb(215, 0, 0)',
-                priority: 5,
-                severity: 'Disaster',
-                show: true,
-              },
-            ],
-            type: 'alexanderzobnin-zabbix-triggers-panel',
-          },
-          {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'thresholds',
-                },
-                mappings: [
+                "groupBy": [
                   {
-                    options: {
-                      0: {
-                        color: 'red',
-                        index: 1,
-                        text: 'DOWN',
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "null"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "host:traffic",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "bytes_rcvd"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "mean"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "host",
+                    "operator": "=~",
+                    "value": "/^$server_ip$/"
+                  }
+                ]
+              },
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "null"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "hide": false,
+                "measurement": "host:traffic",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "bytes_sent"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "mean"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "host",
+                    "operator": "=~",
+                    "value": "/^$server_ip$/"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Traffic Send x Recive",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 1,
+                  "drawStyle": "line",
+                  "fillOpacity": 10,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineStyle": {
+                    "fill": "solid"
+                  },
+                  "lineWidth": 2,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": true,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "decbytes"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 0
+            },
+            "id": 23,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "null"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "iface:traffic",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "bytes"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "mean"
+                    }
+                  ]
+                ],
+                "tags": []
+              }
+            ],
+            "title": "Total Traffic",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 3,
+              "w": 24,
+              "x": 0,
+              "y": 8
+            },
+            "id": 19,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
+              {
+                "application": {
+                  "filter": ""
+                },
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
+                },
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
+                },
+                "host": {
+                  "filter": "/^$server_hostname$/"
+                },
+                "item": {
+                  "filter": ""
+                },
+                "itemTag": {
+                  "filter": ""
+                },
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
+                },
+                "proxy": {
+                  "filter": ""
+                },
+                "queryType": "2",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
+                },
+                "tags": {
+                  "filter": ""
+                },
+                "textFilter": "System name",
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                },
+                "useCaptureGroups": false
+              }
+            ],
+            "title": "Server hostname",
+            "type": "stat"
+          },
+          {
+            "ackEventColor": "rgb(56, 219, 156)",
+            "ackField": true,
+            "ageField": false,
+            "customLastChangeFormat": false,
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "descriptionAtNewLine": false,
+            "descriptionField": true,
+            "fontSize": "100%",
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 11
+            },
+            "highlightBackground": false,
+            "highlightNewEvents": false,
+            "highlightNewerThan": "1h",
+            "hostField": true,
+            "hostGroups": false,
+            "hostProxy": false,
+            "hostTechNameField": false,
+            "id": 10,
+            "lastChangeFormat": "",
+            "layout": "table",
+            "markAckEvents": false,
+            "okEventColor": "rgb(56, 189, 113)",
+            "pageSize": 10,
+            "problemTimeline": true,
+            "resizedColumns": [],
+            "schemaVersion": 8,
+            "severityField": true,
+            "showTags": true,
+            "sortProblems": "lastchange",
+            "statusField": true,
+            "statusIcon": false,
+            "targets": [
+              {
+                "application": {
+                  "filter": ""
+                },
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
+                },
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
+                },
+                "host": {
+                  "filter": "/^$server_hostname$/"
+                },
+                "item": {
+                  "filter": ""
+                },
+                "itemTag": {
+                  "filter": ""
+                },
+                "options": {
+                  "acknowledged": 2,
+                  "disableDataAlignment": false,
+                  "hostProxy": false,
+                  "hostsInMaintenance": false,
+                  "limit": 1001,
+                  "minSeverity": 0,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "sortProblems": "default",
+                  "useZabbixValueMapping": false
+                },
+                "proxy": {
+                  "filter": ""
+                },
+                "queryType": "5",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "showProblems": "problems",
+                "slaInterval": "none",
+                "slaProperty": {
+                  "name": "Status",
+                  "property": "status"
+                },
+                "table": {
+                  "skipEmptyValues": false
+                },
+                "tags": {
+                  "filter": ""
+                },
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 0
+                }
+              }
+            ],
+            "title": "Zabbix Error Panel",
+            "triggerSeverity": [
+              {
+                "$$hashKey": "object:587",
+                "color": "rgb(108, 108, 108)",
+                "priority": 0,
+                "severity": "Not classified",
+                "show": true
+              },
+              {
+                "$$hashKey": "object:588",
+                "color": "rgb(120, 158, 183)",
+                "priority": 1,
+                "severity": "Information",
+                "show": true
+              },
+              {
+                "$$hashKey": "object:589",
+                "color": "rgb(175, 180, 36)",
+                "priority": 2,
+                "severity": "Warning",
+                "show": true
+              },
+              {
+                "$$hashKey": "object:590",
+                "color": "rgb(255, 137, 30)",
+                "priority": 3,
+                "severity": "Average",
+                "show": true
+              },
+              {
+                "$$hashKey": "object:591",
+                "color": "rgb(255, 101, 72)",
+                "priority": 4,
+                "severity": "High",
+                "show": true
+              },
+              {
+                "$$hashKey": "object:592",
+                "color": "rgb(215, 0, 0)",
+                "priority": 5,
+                "severity": "Disaster",
+                "show": true
+              }
+            ],
+            "type": "alexanderzobnin-zabbix-triggers-panel"
+          },
+          {
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "DOWN"
                       },
-                      1: {
-                        color: 'super-light-green',
-                        index: 0,
-                        text: 'UP',
-                      },
+                      "1": {
+                        "color": "super-light-green",
+                        "index": 0,
+                        "text": "UP"
+                      }
                     },
-                    type: 'value',
-                  },
+                    "type": "value"
+                  }
                 ],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
-                    },
-                  ],
-                },
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 4,
-              w: 6,
-              x: 12,
-              y: 3,
+            "gridPos": {
+              "h": 4,
+              "w": 6,
+              "x": 12,
+              "y": 11
             },
-            id: 6,
-            options: {
-              colorMode: 'value',
-              graphMode: 'none',
-              justifyMode: 'auto',
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 6,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "none",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "fields": "",
+                "values": false
               },
-              textMode: 'auto',
+              "textMode": "auto"
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: 'Zabbix server',
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'Zabbix agent ping',
+                "host": {
+                  "filter": "Zabbix server"
                 },
-                itemTag: {
-                  filter: 'Application: Monitoring agent',
+                "item": {
+                  "filter": "Zabbix agent ping"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: Monitoring agent"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
+                "proxy": {
+                  "filter": ""
                 },
-                tags: {
-                  filter: '',
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
                 },
-                trigger: {
-                  filter: '',
+                "tags": {
+                  "filter": ""
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "trigger": {
+                  "filter": ""
                 },
-              },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'Zabbix Agent Status',
-            type: 'stat',
+            "title": "Zabbix Agent Status",
+            "type": "stat"
           },
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'palette-classic',
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
                 },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
-                    },
-                  ],
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
                 },
-                unit: 's',
+                "unit": "s"
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 4,
-              w: 6,
-              x: 18,
-              y: 3,
+            "gridPos": {
+              "h": 4,
+              "w": 6,
+              "x": 18,
+              "y": 11
             },
-            id: 2,
-            options: {
-              colorMode: 'value',
-              graphMode: 'none',
-              justifyMode: 'auto',
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 2,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "none",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "fields": "",
+                "values": false
               },
-              textMode: 'auto',
+              "textMode": "auto"
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: 'Zabbix server',
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'System uptime',
+                "host": {
+                  "filter": "/^$server_hostname$/"
                 },
-                itemTag: {
-                  filter: 'Application: Status',
+                "item": {
+                  "filter": "System uptime"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: Status"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                slaInterval: 'none',
-                slaProperty: {
-                  name: 'SLA',
-                  property: 'sla',
+                "proxy": {
+                  "filter": ""
                 },
-                table: {
-                  skipEmptyValues: false,
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "slaInterval": "none",
+                "slaProperty": {
+                  "name": "SLA",
+                  "property": "sla"
                 },
-                tags: {
-                  filter: '',
+                "table": {
+                  "skipEmptyValues": false
                 },
-                trigger: {
-                  filter: '',
+                "tags": {
+                  "filter": ""
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "trigger": {
+                  "filter": ""
                 },
-              },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'OS - Uptime',
-            type: 'stat',
+            "title": "OS - Uptime",
+            "type": "stat"
           },
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'thresholds',
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
                 },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
+                      "color": "green",
+                      "value": null
                     },
                     {
-                      color: 'red',
-                      value: 80,
-                    },
-                  ],
-                },
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 4,
-              w: 6,
-              x: 12,
-              y: 7,
+            "gridPos": {
+              "h": 4,
+              "w": 6,
+              "x": 12,
+              "y": 15
             },
-            id: 15,
-            options: {
-              colorMode: 'value',
-              graphMode: 'area',
-              justifyMode: 'auto',
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 15,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "fields": "",
+                "values": false
               },
-              textMode: 'auto',
+              "textMode": "auto"
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: `${host}`,
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'Checksum of /etc/passwd',
+                "host": {
+                  "filter": "/^$server_hostname$/"
                 },
-                itemTag: {
-                  filter: 'Application: Security',
+                "item": {
+                  "filter": "Checksum of /etc/passwd"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: Security"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "acknowledged": 2,
+                  "disableDataAlignment": false,
+                  "hostProxy": false,
+                  "hostsInMaintenance": false,
+                  "limit": 1001,
+                  "minSeverity": 0,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "sortProblems": "default",
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
+                "proxy": {
+                  "filter": ""
                 },
-                tags: {
-                  filter: '',
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "showProblems": "problems",
+                "slaInterval": "none",
+                "slaProperty": {
+                  "name": "SLA",
+                  "property": "sla"
                 },
-                trigger: {
-                  filter: '',
+                "table": {
+                  "skipEmptyValues": false
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "tags": {
+                  "filter": ""
                 },
-              },
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'Cheksum Passwd',
-            type: 'stat',
+            "title": "Cheksum Passwd",
+            "type": "stat"
           },
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'thresholds',
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
                 },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
-                    },
-                  ],
-                },
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 4,
-              w: 6,
-              x: 18,
-              y: 7,
+            "gridPos": {
+              "h": 4,
+              "w": 6,
+              "x": 18,
+              "y": 15
             },
-            id: 14,
-            options: {
-              colorMode: 'value',
-              graphMode: 'none',
-              justifyMode: 'auto',
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 14,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "none",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "fields": "",
+                "values": false
               },
-              textMode: 'auto',
+              "textMode": "auto"
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: `${host}`,
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'Number of logged in users',
+                "host": {
+                  "filter": "/^$server_hostname$/"
                 },
-                itemTag: {
-                  filter: 'Application: OS',
+                "item": {
+                  "filter": "Number of logged in users"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: General"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
+                "proxy": {
+                  "filter": ""
                 },
-                tags: {
-                  filter: '',
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
                 },
-                trigger: {
-                  filter: '',
+                "tags": {
+                  "filter": ""
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "trigger": {
+                  "filter": ""
                 },
-              },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'User Logged',
-            type: 'stat',
+            "title": "User Logged",
+            "type": "stat"
           },
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'palette-classic',
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
                 },
-                custom: {
-                  axisLabel: '',
-                  axisPlacement: 'auto',
-                  barAlignment: 0,
-                  drawStyle: 'line',
-                  fillOpacity: 0,
-                  gradientMode: 'none',
-                  hideFrom: {
-                    legend: false,
-                    tooltip: false,
-                    viz: false,
-                  },
-                  lineInterpolation: 'linear',
-                  lineWidth: 1,
-                  pointSize: 5,
-                  scaleDistribution: {
-                    type: 'linear',
-                  },
-                  showPoints: 'auto',
-                  spanNulls: false,
-                  stacking: {
-                    group: 'A',
-                    mode: 'none',
-                  },
-                  thresholdsStyle: {
-                    mode: 'off',
-                  },
-                },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "mappings": [],
+                "max": 100,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
+                      "color": "green",
+                      "value": null
                     },
                     {
-                      color: 'red',
-                      value: 80,
-                    },
-                  ],
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
                 },
-                unit: 'ms',
+                "unit": "percent"
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 8,
-              w: 12,
-              x: 0,
-              y: 11,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 19
             },
-            id: 8,
-            options: {
-              legend: {
-                calcs: [
-                  'last',
+            "id": 8,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                displayMode: 'list',
-                placement: 'bottom',
+                "fields": "",
+                "values": false
               },
-              tooltip: {
-                mode: 'single',
-              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
             },
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: `${host}`,
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'Processor load (1 min average per core)',
+                "hide": false,
+                "host": {
+                  "filter": "/^$server_hostname$/"
                 },
-                itemTag: {
-                  filter: 'Application: CPU',
+                "item": {
+                  "filter": "CPU utilization"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: CPU"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
+                "proxy": {
+                  "filter": ""
                 },
-                tags: {
-                  filter: '',
+                "queryType": "0",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
                 },
-                trigger: {
-                  filter: '',
+                "tags": {
+                  "filter": ""
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "trigger": {
+                  "filter": ""
                 },
-              },
-              {
-                application: {
-                  filter: '',
-                },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
-                },
-                hide: false,
-                host: {
-                  filter: `${host}`,
-                },
-                item: {
-                  filter: 'Processor load (5 min average per core)',
-                },
-                itemTag: {
-                  filter: 'Application: CPU',
-                },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
-                },
-                proxy: {
-                  filter: '',
-                },
-                queryType: '0',
-                refId: 'B',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
-                },
-                tags: {
-                  filter: '',
-                },
-                trigger: {
-                  filter: '',
-                },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
-                },
-              },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'CPU - Load average',
-            type: 'timeseries',
+            "title": "CPU - Load average",
+            "type": "gauge"
           },
           {
-            datasource: null,
-            fieldConfig: {
-              defaults: {
-                color: {
-                  mode: 'thresholds',
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
                 },
-                mappings: [],
-                thresholds: {
-                  mode: 'absolute',
-                  steps: [
+                "mappings": [],
+                "max": 100,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
                     {
-                      color: 'green',
-                      value: null,
+                      "color": "green",
+                      "value": null
                     },
                     {
-                      color: 'red',
-                      value: 80,
-                    },
-                  ],
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
                 },
-                unit: 'decbytes',
+                "unit": "percent"
               },
-              overrides: [],
+              "overrides": []
             },
-            gridPos: {
-              h: 8,
-              w: 12,
-              x: 12,
-              y: 11,
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 19
             },
-            id: 17,
-            options: {
-              orientation: 'auto',
-              reduceOptions: {
-                calcs: [
-                  'lastNotNull',
+            "id": 17,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
                 ],
-                fields: '',
-                values: false,
+                "fields": "",
+                "values": false
               },
-              showThresholdLabels: false,
-              showThresholdMarkers: true,
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
             },
-            pluginVersion: '8.3.0-pre',
-            targets: [
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
               {
-                application: {
-                  filter: '',
+                "application": {
+                  "filter": ""
                 },
-                datasource: 'Zabbix',
-                functions: [],
-                group: {
-                  filter: 'Zabbix servers',
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
                 },
-                host: {
-                  filter: `${host}`,
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
                 },
-                item: {
-                  filter: 'Total memory',
+                "host": {
+                  "filter": "/^$server_hostname$/"
                 },
-                itemTag: {
-                  filter: 'Application: Memory',
+                "item": {
+                  "filter": "Memory utilization"
                 },
-                options: {
-                  disableDataAlignment: false,
-                  showDisabledItems: false,
-                  skipEmptyValues: false,
-                  useZabbixValueMapping: false,
+                "itemTag": {
+                  "filter": "Application: Memory"
                 },
-                proxy: {
-                  filter: '',
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
                 },
-                queryType: '0',
-                refId: 'A',
-                resultFormat: 'time_series',
-                table: {
-                  skipEmptyValues: false,
+                "proxy": {
+                  "filter": ""
                 },
-                tags: {
-                  filter: '',
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
                 },
-                trigger: {
-                  filter: '',
+                "tags": {
+                  "filter": ""
                 },
-                triggers: {
-                  acknowledged: 2,
-                  count: true,
-                  minSeverity: 3,
+                "trigger": {
+                  "filter": ""
                 },
-              },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
             ],
-            title: 'Memory - Available',
-            type: 'gauge',
-          },
+            "title": "Memory - Available",
+            "transformations": [],
+            "type": "gauge"
+          }
         ],
-        refresh: '5s',
-        schemaVersion: 31,
-        style: 'dark',
-        tags: [],
-        templating: {
-          list: [],
+        "refresh": "5s",
+        "schemaVersion": 36,
+        "style": "dark",
+        "tags": [],
+        "templating": {
+          "list": [
+            {
+              "hide": 2,
+              "label": "Server IP",
+              "name": "server_ip",
+              "query": `${ip}`,
+              "skipUrlSync": false,
+              "type": "constant"
+            },
+            {
+              "hide": 2,
+              "label": "Server Hostname",
+              "name": "server_hostname",
+              "query": `${host}`,
+              "skipUrlSync": false,
+              "type": "constant"
+            },
+            {
+              "current": {
+                "selected": false,
+                "text": "All",
+                "value": "$__all"
+              },
+              "datasource": {
+                "type": "alexanderzobnin-zabbix-datasource",
+                "uid": "PA67C5EADE9207728"
+              },
+              "definition": "Zabbix - item",
+              "hide": 0,
+              "includeAll": true,
+              "label": "Network interface",
+              "multi": true,
+              "name": "netif",
+              "options": [],
+              "query": {
+                "application": "",
+                "group": "Zabbix Servers",
+                "host": "/^$server_hostname$/",
+                "item": "/.*/",
+                "itemTag": "",
+                "queryType": "item"
+              },
+              "refresh": 1,
+              "regex": "/(?:Incoming|Outgoing) network traffic on (.*)/",
+              "skipUrlSync": false,
+              "sort": 0,
+              "type": "query"
+            }
+          ]
         },
-        time: {
-          from: 'now-6h',
-          to: 'now',
+        "time": {
+          "from": "now-6h",
+          "to": "now"
         },
-        timepicker: {},
-        timezone: '',
-        title: `${name}`,
-        uid: null,
-        version: 1,
-        weekStart: '',
-      },
+        "timepicker": {},
+        "timezone": "",
+        "title": `${name}`,
+        "version": 6,
+        "weekStart": ""
+      }
     };
-
     return dashboard;
   },
 };
