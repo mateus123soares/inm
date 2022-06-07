@@ -1,14 +1,12 @@
+const logger = require('../../../config/winston');
 const axios = require('axios');
 
 const autenticApiZabbix = require('./AutenticService');
-const grafanDashboard = require('../grafana/CreateDashboardService');
 
 const {
-  hostCreateFail, hostCreateSucess, tokenCreateFail, dashboardCreateSucess, dashboardExists, dashboardGetError
-} = require('../../../constants/messages');
+  hostCreateFail, hostCreateSucess, tokenCreateFail, dashboardCreateSucess, dashboardExists } = require('../../../constants/messages');
 const { zabbixTemplateId, zabbixGroupId, zabbixHost } = require('../../../config/credentials');
 
-const logger = require('../../../config/winston');
 
 module.exports = {
   async getHost(data) {
@@ -100,10 +98,10 @@ module.exports = {
         id: 1,
       },
     };
+
     try {
       const responseHostCreate = await axios.request(options);
-      const responseHostGrafana = await grafanDashboard.createDashboard(host);
-      if (!responseHostCreate.data.error && responseHostGrafana.code == 200) {
+      if (!responseHostCreate.data.error) {
         logger.info(hostCreateSucess, { label: 'host-service' });
         return {
           code: 200,
