@@ -38,6 +38,7 @@ const logger = createLogger({
 
 logger.stream = {
   write(message) {
+    message = message.trim();
     logger.info(message, { label: 'http-service' });
   },
 };
