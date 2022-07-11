@@ -1,6 +1,6 @@
 module.exports = {
 
-  instanceDashboard(name, host, ip) {
+  instanceDashboard(name, host, ip, interface) {
     const dashboard = {
       Dashboard: {
         "annotations": {
@@ -28,308 +28,9 @@ module.exports = {
         "editable": true,
         "fiscalYearStartMonth": 0,
         "graphTooltip": 0,
-        "id": null,
-        "iteration": 1654566956151,
         "links": [],
         "liveNow": false,
         "panels": [
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "P951FEA4DE68E13C5"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisGridShow": true,
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "barAlignment": 0,
-                  "drawStyle": "line",
-                  "fillOpacity": 7,
-                  "gradientMode": "none",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineInterpolation": "linear",
-                  "lineStyle": {
-                    "fill": "solid"
-                  },
-                  "lineWidth": 1,
-                  "pointSize": 3,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "showPoints": "always",
-                  "spanNulls": true,
-                  "stacking": {
-                    "group": "A",
-                    "mode": "normal"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    }
-                  ]
-                },
-                "unit": "decbytes"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 8,
-              "w": 12,
-              "x": 0,
-              "y": 0
-            },
-            "id": 21,
-            "options": {
-              "legend": {
-                "calcs": [
-                  "lastNotNull"
-                ],
-                "displayMode": "list",
-                "placement": "bottom"
-              },
-              "tooltip": {
-                "mode": "single",
-                "sort": "asc"
-              }
-            },
-            "targets": [
-              {
-                "datasource": {
-                  "type": "influxdb",
-                  "uid": "P951FEA4DE68E13C5"
-                },
-                "groupBy": [
-                  {
-                    "params": [
-                      "$__interval"
-                    ],
-                    "type": "time"
-                  },
-                  {
-                    "params": [
-                      "null"
-                    ],
-                    "type": "fill"
-                  }
-                ],
-                "measurement": "host:traffic",
-                "orderByTime": "ASC",
-                "policy": "default",
-                "refId": "A",
-                "resultFormat": "time_series",
-                "select": [
-                  [
-                    {
-                      "params": [
-                        "bytes_rcvd"
-                      ],
-                      "type": "field"
-                    },
-                    {
-                      "params": [],
-                      "type": "mean"
-                    }
-                  ]
-                ],
-                "tags": [
-                  {
-                    "key": "host",
-                    "operator": "=~",
-                    "value": "/^$server_ip$/"
-                  }
-                ]
-              },
-              {
-                "datasource": {
-                  "type": "influxdb",
-                  "uid": "P951FEA4DE68E13C5"
-                },
-                "groupBy": [
-                  {
-                    "params": [
-                      "$__interval"
-                    ],
-                    "type": "time"
-                  },
-                  {
-                    "params": [
-                      "null"
-                    ],
-                    "type": "fill"
-                  }
-                ],
-                "hide": false,
-                "measurement": "host:traffic",
-                "orderByTime": "ASC",
-                "policy": "default",
-                "refId": "B",
-                "resultFormat": "time_series",
-                "select": [
-                  [
-                    {
-                      "params": [
-                        "bytes_sent"
-                      ],
-                      "type": "field"
-                    },
-                    {
-                      "params": [],
-                      "type": "mean"
-                    }
-                  ]
-                ],
-                "tags": [
-                  {
-                    "key": "host",
-                    "operator": "=~",
-                    "value": "/^$server_ip$/"
-                  }
-                ]
-              }
-            ],
-            "title": "Total Traffic Send x Recive",
-            "type": "timeseries"
-          },
-          {
-            "datasource": {
-              "type": "influxdb",
-              "uid": "P951FEA4DE68E13C5"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "mode": "palette-classic"
-                },
-                "custom": {
-                  "axisLabel": "",
-                  "axisPlacement": "auto",
-                  "barAlignment": 1,
-                  "drawStyle": "line",
-                  "fillOpacity": 10,
-                  "gradientMode": "opacity",
-                  "hideFrom": {
-                    "legend": false,
-                    "tooltip": false,
-                    "viz": false
-                  },
-                  "lineInterpolation": "linear",
-                  "lineStyle": {
-                    "fill": "solid"
-                  },
-                  "lineWidth": 2,
-                  "pointSize": 5,
-                  "scaleDistribution": {
-                    "type": "linear"
-                  },
-                  "showPoints": "auto",
-                  "spanNulls": true,
-                  "stacking": {
-                    "group": "A",
-                    "mode": "none"
-                  },
-                  "thresholdsStyle": {
-                    "mode": "off"
-                  }
-                },
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": null
-                    },
-                    {
-                      "color": "red",
-                      "value": 80
-                    }
-                  ]
-                },
-                "unit": "decbytes"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 8,
-              "w": 12,
-              "x": 12,
-              "y": 0
-            },
-            "id": 23,
-            "options": {
-              "legend": {
-                "calcs": [],
-                "displayMode": "list",
-                "placement": "bottom"
-              },
-              "tooltip": {
-                "mode": "single",
-                "sort": "none"
-              }
-            },
-            "pluginVersion": "9.0.0-pre",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "influxdb",
-                  "uid": "P951FEA4DE68E13C5"
-                },
-                "groupBy": [
-                  {
-                    "params": [
-                      "$__interval"
-                    ],
-                    "type": "time"
-                  },
-                  {
-                    "params": [
-                      "null"
-                    ],
-                    "type": "fill"
-                  }
-                ],
-                "measurement": "iface:traffic",
-                "orderByTime": "ASC",
-                "policy": "default",
-                "refId": "A",
-                "resultFormat": "time_series",
-                "select": [
-                  [
-                    {
-                      "params": [
-                        "bytes"
-                      ],
-                      "type": "field"
-                    },
-                    {
-                      "params": [],
-                      "type": "mean"
-                    }
-                  ]
-                ],
-                "tags": []
-              }
-            ],
-            "title": "Total Traffic",
-            "type": "timeseries"
-          },
           {
             "datasource": {
               "type": "alexanderzobnin-zabbix-datasource",
@@ -361,7 +62,7 @@ module.exports = {
               "h": 3,
               "w": 24,
               "x": 0,
-              "y": 8
+              "y": 0
             },
             "id": 19,
             "options": {
@@ -373,7 +74,7 @@ module.exports = {
                 "calcs": [
                   "lastNotNull"
                 ],
-                "fields": "",
+                "fields": "/^System name$/",
                 "values": false
               },
               "textMode": "auto"
@@ -396,16 +97,16 @@ module.exports = {
                   "filter": "/^$server_hostname$/"
                 },
                 "item": {
-                  "filter": ""
+                  "filter": "System name"
                 },
                 "itemTag": {
-                  "filter": ""
+                  "filter": "Application: General"
                 },
                 "options": {
-                  "disableDataAlignment": false,
-                  "showDisabledItems": false,
+                  "disableDataAlignment": true,
+                  "showDisabledItems": true,
                   "skipEmptyValues": false,
-                  "useZabbixValueMapping": false
+                  "useZabbixValueMapping": true
                 },
                 "proxy": {
                   "filter": ""
@@ -419,7 +120,7 @@ module.exports = {
                 "tags": {
                   "filter": ""
                 },
-                "textFilter": "System name",
+                "textFilter": "",
                 "trigger": {
                   "filter": ""
                 },
@@ -432,7 +133,290 @@ module.exports = {
               }
             ],
             "title": "Server hostname",
+            "transformations": [],
             "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 30,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineStyle": {
+                    "fill": "solid"
+                  },
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "Kbits"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 3
+            },
+            "id": 35,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              }
+            },
+            "targets": [
+              {
+                "application": {
+                  "filter": ""
+                },
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
+                },
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
+                },
+                "host": {
+                  "filter": "/^$server_hostname$/"
+                },
+                "item": {
+                  "filter": `Interface ${interface}: Bits received`
+                },
+                "itemTag": {
+                  "filter": `Application: Interface ${interface}`
+                },
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
+                },
+                "proxy": {
+                  "filter": ""
+                },
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
+                },
+                "tags": {
+                  "filter": ""
+                },
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              },
+              {
+                "application": {
+                  "filter": ""
+                },
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
+                },
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
+                },
+                "hide": false,
+                "host": {
+                  "filter": "/^$server_hostname$/"
+                },
+                "item": {
+                  "filter": `Interface ${interface}: Bits sent`
+                },
+                "itemTag": {
+                  "filter": `Application: Interface ${interface}`
+                },
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
+                },
+                "proxy": {
+                  "filter": ""
+                },
+                "queryType": "0",
+                "refId": "B",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
+                },
+                "tags": {
+                  "filter": ""
+                },
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
+            ],
+            "title": "Total traffic interface",
+            "type": "timeseries"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "P951FEA4DE68E13C5"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "color-text",
+                  "filterable": true,
+                  "inspect": false
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "decbytes"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 24,
+              "x": 0,
+              "y": 11
+            },
+            "id": 33,
+            "options": {
+              "footer": {
+                "enablePagination": true,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "Time"
+                }
+              ]
+            },
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
+              {
+                "alias": "",
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "P951FEA4DE68E13C5"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  }
+                ],
+                "measurement": "host:ndpi_flows",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "query": "SELECT \"time\",\"host\",\"protocol\",\"num_flows\" FROM \"host:ndpi_flows\"  WHERE $timeFilter AND (\"host\" =~ /^$server_ip$/)",
+                "rawQuery": true,
+                "refId": "A",
+                "resultFormat": "logs",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "num_flows"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "mean"
+                    }
+                  ]
+                ],
+                "tags": []
+              }
+            ],
+            "title": "Protocol peer host",
+            "type": "table"
           },
           {
             "ackEventColor": "rgb(56, 219, 156)",
@@ -450,7 +434,7 @@ module.exports = {
               "h": 8,
               "w": 12,
               "x": 0,
-              "y": 11
+              "y": 19
             },
             "highlightBackground": false,
             "highlightNewEvents": false,
@@ -592,6 +576,104 @@ module.exports = {
                 "color": {
                   "mode": "thresholds"
                 },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 3,
+              "x": 12,
+              "y": 19
+            },
+            "id": 14,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "none",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
+              {
+                "application": {
+                  "filter": ""
+                },
+                "datasource": {
+                  "type": "alexanderzobnin-zabbix-datasource",
+                  "uid": "PA67C5EADE9207728"
+                },
+                "functions": [],
+                "group": {
+                  "filter": "Zabbix servers"
+                },
+                "host": {
+                  "filter": "/^$server_hostname$/"
+                },
+                "item": {
+                  "filter": "Number of logged in users"
+                },
+                "itemTag": {
+                  "filter": "Application: General"
+                },
+                "options": {
+                  "disableDataAlignment": false,
+                  "showDisabledItems": false,
+                  "skipEmptyValues": false,
+                  "useZabbixValueMapping": false
+                },
+                "proxy": {
+                  "filter": ""
+                },
+                "queryType": "0",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "table": {
+                  "skipEmptyValues": false
+                },
+                "tags": {
+                  "filter": ""
+                },
+                "trigger": {
+                  "filter": ""
+                },
+                "triggers": {
+                  "acknowledged": 2,
+                  "count": true,
+                  "minSeverity": 3
+                }
+              }
+            ],
+            "title": "User Logged",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "alexanderzobnin-zabbix-datasource",
+              "uid": "PA67C5EADE9207728"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
                 "mappings": [
                   {
                     "options": {
@@ -622,10 +704,10 @@ module.exports = {
               "overrides": []
             },
             "gridPos": {
-              "h": 4,
-              "w": 6,
-              "x": 12,
-              "y": 11
+              "h": 5,
+              "w": 3,
+              "x": 15,
+              "y": 19
             },
             "id": 6,
             "options": {
@@ -721,10 +803,10 @@ module.exports = {
               "overrides": []
             },
             "gridPos": {
-              "h": 4,
+              "h": 5,
               "w": 6,
               "x": 18,
-              "y": 11
+              "y": 19
             },
             "id": 2,
             "options": {
@@ -811,6 +893,7 @@ module.exports = {
                   "mode": "thresholds"
                 },
                 "mappings": [],
+                "noValue": "No changes",
                 "thresholds": {
                   "mode": "absolute",
                   "steps": [
@@ -828,12 +911,12 @@ module.exports = {
               "overrides": []
             },
             "gridPos": {
-              "h": 4,
-              "w": 6,
+              "h": 3,
+              "w": 12,
               "x": 12,
-              "y": 15
+              "y": 24
             },
-            "id": 15,
+            "id": 31,
             "options": {
               "colorMode": "value",
               "graphMode": "area",
@@ -843,7 +926,7 @@ module.exports = {
                 "calcs": [
                   "lastNotNull"
                 ],
-                "fields": "",
+                "fields": "/^Checksum of /etc/passwd$/",
                 "values": false
               },
               "textMode": "auto"
@@ -872,29 +955,17 @@ module.exports = {
                   "filter": "Application: Security"
                 },
                 "options": {
-                  "acknowledged": 2,
                   "disableDataAlignment": false,
-                  "hostProxy": false,
-                  "hostsInMaintenance": false,
-                  "limit": 1001,
-                  "minSeverity": 0,
                   "showDisabledItems": false,
                   "skipEmptyValues": false,
-                  "sortProblems": "default",
                   "useZabbixValueMapping": false
                 },
                 "proxy": {
                   "filter": ""
                 },
-                "queryType": "0",
+                "queryType": "2",
                 "refId": "A",
                 "resultFormat": "time_series",
-                "showProblems": "problems",
-                "slaInterval": "none",
-                "slaProperty": {
-                  "name": "SLA",
-                  "property": "sla"
-                },
                 "table": {
                   "skipEmptyValues": false
                 },
@@ -908,11 +979,226 @@ module.exports = {
                   "acknowledged": 2,
                   "count": true,
                   "minSeverity": 3
-                }
+                },
+                "useCaptureGroups": false
               }
             ],
-            "title": "Cheksum Passwd",
+            "title": "Checksum Passwd",
             "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "6BuIPUr7z"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "color-text",
+                  "filterable": true,
+                  "inspect": true
+                },
+                "mappings": [],
+                "noValue": "No more logs",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 24,
+              "x": 0,
+              "y": 27
+            },
+            "id": 27,
+            "options": {
+              "footer": {
+                "enablePagination": true,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "ufw_interface"
+                }
+              ]
+            },
+            "pluginVersion": "9.0.0-pre",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "6BuIPUr7z"
+                },
+                "groupBy": [],
+                "measurement": "ufw_log",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "refId": "A",
+                "resultFormat": "logs",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "*"
+                      ],
+                      "type": "field"
+                    }
+                  ]
+                ],
+                "tags": [
+                  {
+                    "key": "host",
+                    "operator": "=",
+                    "value": "mateus-HP-240-G4-Notebook-PC"
+                  }
+                ]
+              }
+            ],
+            "title": "Logs UFW Firewall",
+            "type": "table"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "6BuIPUr7z"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 7,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineStyle": {
+                    "fill": "solid"
+                  },
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "noValue": "No actions",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 24,
+              "x": 0,
+              "y": 34
+            },
+            "id": 29,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "asc"
+              }
+            },
+            "targets": [
+              {
+                "datasource": {
+                  "type": "influxdb",
+                  "uid": "6BuIPUr7z"
+                },
+                "groupBy": [
+                  {
+                    "params": [
+                      "$__interval"
+                    ],
+                    "type": "time"
+                  },
+                  {
+                    "params": [
+                      "null"
+                    ],
+                    "type": "fill"
+                  }
+                ],
+                "measurement": "ufw_log",
+                "orderByTime": "ASC",
+                "policy": "default",
+                "refId": "A",
+                "resultFormat": "time_series",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "ufw_action"
+                      ],
+                      "type": "field"
+                    },
+                    {
+                      "params": [],
+                      "type": "count"
+                    }
+                  ]
+                ],
+                "tags": []
+              }
+            ],
+            "title": "Total Action Firewall Block",
+            "type": "timeseries"
           },
           {
             "datasource": {
@@ -921,16 +1207,23 @@ module.exports = {
             },
             "fieldConfig": {
               "defaults": {
-                "color": {
-                  "mode": "thresholds"
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "color-text",
+                  "inspect": false
                 },
                 "mappings": [],
+                "noValue": "No software installed",
                 "thresholds": {
                   "mode": "absolute",
                   "steps": [
                     {
                       "color": "green",
                       "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
                     }
                   ]
                 }
@@ -939,24 +1232,20 @@ module.exports = {
             },
             "gridPos": {
               "h": 4,
-              "w": 6,
-              "x": 18,
-              "y": 15
+              "w": 24,
+              "x": 0,
+              "y": 41
             },
-            "id": 14,
+            "id": 25,
             "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "auto",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "lastNotNull"
-                ],
+              "footer": {
                 "fields": "",
-                "values": false
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
               },
-              "textMode": "auto"
+              "showHeader": true
             },
             "pluginVersion": "9.0.0-pre",
             "targets": [
@@ -976,10 +1265,10 @@ module.exports = {
                   "filter": "/^$server_hostname$/"
                 },
                 "item": {
-                  "filter": "Number of logged in users"
+                  "filter": "Software installed"
                 },
                 "itemTag": {
-                  "filter": "Application: General"
+                  "filter": "Application: Inventory"
                 },
                 "options": {
                   "disableDataAlignment": false,
@@ -990,7 +1279,7 @@ module.exports = {
                 "proxy": {
                   "filter": ""
                 },
-                "queryType": "0",
+                "queryType": "2",
                 "refId": "A",
                 "resultFormat": "time_series",
                 "table": {
@@ -1009,8 +1298,8 @@ module.exports = {
                 }
               }
             ],
-            "title": "User Logged",
-            "type": "stat"
+            "title": "Softwares Instaled",
+            "type": "table"
           },
           {
             "datasource": {
@@ -1025,15 +1314,19 @@ module.exports = {
                 "mappings": [],
                 "max": 100,
                 "thresholds": {
-                  "mode": "absolute",
+                  "mode": "percentage",
                   "steps": [
                     {
                       "color": "green",
                       "value": null
                     },
                     {
-                      "color": "red",
+                      "color": "#EAB839",
                       "value": 80
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
                     }
                   ]
                 },
@@ -1045,7 +1338,7 @@ module.exports = {
               "h": 8,
               "w": 12,
               "x": 0,
-              "y": 19
+              "y": 45
             },
             "id": 8,
             "options": {
@@ -1128,15 +1421,19 @@ module.exports = {
                 "mappings": [],
                 "max": 100,
                 "thresholds": {
-                  "mode": "absolute",
+                  "mode": "percentage",
                   "steps": [
                     {
                       "color": "green",
                       "value": null
                     },
                     {
-                      "color": "red",
+                      "color": "#EAB839",
                       "value": 80
+                    },
+                    {
+                      "color": "red",
+                      "value": 90
                     }
                   ]
                 },
@@ -1148,7 +1445,7 @@ module.exports = {
               "h": 8,
               "w": 12,
               "x": 12,
-              "y": 19
+              "y": 45
             },
             "id": 17,
             "options": {
@@ -1281,7 +1578,6 @@ module.exports = {
         "timepicker": {},
         "timezone": "",
         "title": `${name}`,
-        "version": 6,
         "weekStart": ""
       }
     };

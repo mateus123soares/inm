@@ -17,7 +17,7 @@ module.exports = {
       };
     }
 
-    const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname, data.ip);
+    const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname, data.ip, data.interface);
     // create a buffer
     const buff = Buffer.from(`${grafanaUser}:${grafanaPassword}`, 'utf-8');
 

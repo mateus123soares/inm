@@ -1,10 +1,10 @@
 module.exports = {
-  zabbixHost: 'http://192.168.0.11/zabbix/api_jsonrpc.php',
-  zabbixUsername: 'Admin',
-  zabbixpassword: 'zabbix',
-  zabbixTemplateId: 10001,
-  zabbixGroupId: 4,
-  grafanaHost: 'http://192.168.0.11:3000',
-  grafanaUser: 'admin',
-  grafanaPassword: 'admin',
+  zabbixHost: process.env.ZABBIX_HOST,
+  zabbixUsername: process.env.ZABBIX_USERNAME,
+  zabbixpassword: process.env.ZABBIX_PASSWORD,
+  zabbixTemplateId: process.env.ZABBIX_TEMPLATEID,
+  zabbixGroupId: process.env.ZABBIX_GROUPID,
+  grafanaHost: process.env.GRAFANA_HOST,
+  grafanaUser: process.env.GRAFANA_USER,
+  grafanaPassword: process.env.GRAFANA_PASSWORD,
 };

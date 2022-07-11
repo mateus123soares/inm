@@ -10,7 +10,6 @@ let ALERT_REQUEST = []
 
 const job = nodeSchedule.scheduleJob(process.env.CRONJOB_RULE, async () => {
     try {
-
         logger.info(cronJobNotify, { label: 'alert-service' });
 
         const result = await alertGrafanaService.getAlerts();
