@@ -7,6 +7,7 @@ const zabbixService = require('../zabbix/HostService')
 
 module.exports = {
   async createDashboard(data) {
+    /*
     const getHost = await zabbixService.getHost({ "hostname": `${data.hostname}` })
 
     if (getHost.result == true) {
@@ -16,7 +17,7 @@ module.exports = {
         message: dashboardExists,
       };
     }
-
+    */
     const dashboardTemplate = instanceDashboard.instanceDashboard(`Dashboard-${data.hostname}`, data.hostname, data.ip, data.interface);
     // create a buffer
     const buff = Buffer.from(`${grafanaUser}:${grafanaPassword}`, 'utf-8');
@@ -29,13 +30,14 @@ module.exports = {
       url: `${grafanaHost}/api/dashboards/db`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Basic ${base64}`,
+        'Authorization': `Basic ${base64}`,
       },
       data: dashboardTemplate,
     };
-
+    console.log("oi")
     try {
       const responseGrafana = await axios.request(options);
+      console.log("oii")
       logger.info(dashboardCreateSucess, { label: 'dashboard-service' });
       return {
         code: 200,

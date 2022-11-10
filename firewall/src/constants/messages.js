@@ -12,5 +12,7 @@ module.exports = {
   getAlertSucess: 'Grafana get API alerts successfully',
   getAlertFail: 'Grafana get API alerts Error',
   cronJobNotify: 'Running cronJob GET API Alerts Grafana',
-  cronJobError: 'Error to execute cronjob request'
+  cronJobError: 'Error to execute cronjob request',
+  createRuleSucess: 'New Rule create with sucess',
+  createRuleError: 'Error create new rule with sucess'
 };

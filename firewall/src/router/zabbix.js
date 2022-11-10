@@ -4,7 +4,7 @@ const routes = Router();
 
 const zabbixController = require('../api/controllers/Zabbix/zabbixController.js');
 
-routes.get('/', zabbixController.getApiToken);
+routes.get('/token', zabbixController.getApiToken);
 routes.post('/host/new', zabbixController.createNewHost);
 routes.post('/host/get', zabbixController.getHost);
 

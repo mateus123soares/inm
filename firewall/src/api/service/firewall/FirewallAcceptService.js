@@ -1,5 +1,6 @@
 const fs = require('fs');
 const message = require('../../../constants/messages');
+const execCommand = require("./FirewallExecRule")
 
 module.exports = {
   async acceptRulesIp(rule) {
@@ -8,6 +9,7 @@ module.exports = {
       const content = `iptables -A INPUT -s ${BLOCK_THIS_IP} -j ACCEPT\niptables -A OUTPUT -d ${BLOCK_THIS_IP} -j ACCEPT\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
@@ -20,6 +22,7 @@ module.exports = {
       const content = `iptables -I INPUT -p tcp -m tcp --dport ${BLOCK_THIS_PORT} -j ACCEPT`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }

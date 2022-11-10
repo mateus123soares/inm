@@ -1,5 +1,6 @@
 const fs = require('fs');
 const message = require('../../../constants/messages');
+const execCommand = require("./FirewallExecRule")
 
 module.exports = {
 
@@ -9,6 +10,7 @@ module.exports = {
       const content = `iptables -A INPUT -s "${BLOCK_THIS_IP}" -j DROP\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
@@ -21,6 +23,7 @@ module.exports = {
       const content = `iptables -A OUTPUT -p tcp --dport ${BLOCK_THIS_IP} -j DROP\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
@@ -34,6 +37,7 @@ module.exports = {
       const content = `iptables -A OUTPUT -p tcp -d ${BLOCK_THIS_IP} --dport ${BLOCK_THIS_PORT} -j DROP\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
@@ -46,6 +50,7 @@ module.exports = {
       const content = `iptables -A INPUT -m mac --mac-source ${BLOCK_THIS_MAC} -j DROP\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
@@ -59,6 +64,7 @@ module.exports = {
       const content = `iptables -A INPUT -i ${BLOCK_THIS_INTERFACE} -s ${BLOCK_THIS_IP} -j DROP\n`;
 
       fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
+      await execCommand.execRule(content)
     } catch (err) {
       console.error(err);
     }
