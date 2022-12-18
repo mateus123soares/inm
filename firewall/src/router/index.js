@@ -7,6 +7,8 @@ const serviceController = require('../api/controllers/Grafana/grafanaController'
 
 // EXEMPLO DE ROTA COMUM
 routes.get('/', indexController.index);
+routes.post('/', indexController.index);
+
 
 routes.post('/grafana/new', serviceController.createDashboard);
 

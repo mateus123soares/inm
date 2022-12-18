@@ -1,5 +1,6 @@
 require('dotenv').config();
 require('./events/apiAlert');
+const contact = require('../src/api/service/grafana/contact-points');
 const express = require('express');
 const morgan = require('morgan');
 const bodyparser = require('body-parser');
@@ -21,6 +22,10 @@ app.use(morgan('combined', { stream: winston.stream }));
 // Configurando o Body-parser
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+
+
+// Cria Webhook para API
+contact.getAlerts()
 
 // Configurando as rotas
 
