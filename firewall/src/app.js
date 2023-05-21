@@ -19,6 +19,7 @@ app.use(helmet());
 app.use(cors());
 // Configurando o Morgan
 app.use(morgan('combined', { stream: winston.stream }));
+app.use(morgan('combined'));
 // Configurando o Body-parser
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
@@ -32,6 +33,7 @@ contact.getAlerts()
 app.use('/', require('./router/index'));
 app.use('/zabbix', require('./router/zabbix'));
 app.use('/firewall', require('./router/firewall'));
+app.use('/grafana', require('./router/grafana'));
 
 app.use(errors());
 

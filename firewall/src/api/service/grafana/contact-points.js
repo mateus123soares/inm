@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 const { grafanaHost, grafanaUser, grafanaPassword } = require('../../../config/credentials');
@@ -55,7 +56,7 @@ async function createWebhook() {
             "type": "webhook",
             "settings": {
                 "httpMethod": "POST",
-                "url": `${API_HOST}:${PORT}`
+                "url": `192.168.0.119:3333`
             },
             "disableResolveMessage": false
         }

@@ -34,10 +34,8 @@ module.exports = {
       },
       data: dashboardTemplate,
     };
-    console.log("oi")
     try {
       const responseGrafana = await axios.request(options);
-      console.log("oii")
       logger.info(dashboardCreateSucess, { label: 'dashboard-service' });
       return {
         code: 200,

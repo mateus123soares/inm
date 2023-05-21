@@ -1,0 +1,6 @@
+{
+    "ignore": [
+        "persistencia.json",
+        "persistencia_dns.json"
+    ]
+}
