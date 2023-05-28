@@ -40,5 +40,21 @@ module.exports = {
             code: 200,
             message: createRuleSucess
         };
+    },
+    async getRule(callback) {
+        const rule = "sudo iptables -L --line-numbers"
+        exec(`ssh ${process.env.FIREWALL_USER}@${process.env.FIREWALL_HOST} '${rule}'`, (error, stdout, stderr) => {
+            if (error) {
+                console.log(`error: ${error.message}`);
+                logger.info(createRuleError, { label: 'dashboard-service' });
+                callback({
+                    code: 500,
+                    message: createRuleError,
+                    response: error.message,
+                });
+            } else {
+                callback(null, stdout);
+            }
+        });
     }
 }

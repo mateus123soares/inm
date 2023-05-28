@@ -17,7 +17,7 @@ module.exports = {
                     });
                     break;
                 default:
-                    console.log("Não é segunda, terça ou quarta.");
+                    console.log("Erro to parse");
             }
         });
         return {

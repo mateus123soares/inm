@@ -1,5 +1,7 @@
 const FirewallDropResource = require('../../service/firewall/FirewallDropService');
 const FirewallAcceptResource = require('../../service/firewall/FirewallAcceptService');
+const firewall = require('../../service/firewall/FirewallExecRule')
+
 
 module.exports = {
   async dropRulesIp(req, res) {
@@ -59,4 +61,14 @@ module.exports = {
     const status = await FirewallAcceptResource.acceptRulesPort(data);
     return res.status(200).json(status);
   },
+  async getRules(req, res) {
+    firewall.getRule(async (error, result) => {
+      if (error) {
+        console.error(error);
+      } else {
+        const rules = await FirewallAcceptResource.listRules(result);
+        return res.json(rules)
+      }
+    });
+  }
 };

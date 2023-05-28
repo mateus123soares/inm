@@ -28,4 +28,32 @@ module.exports = {
     }
     return { status: message.sucessRules };
   },
+  async listRules(input) {
+    const lines = input.split('\n');
+    const rules = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+
+      // Ignorar linhas em branco e cabeçalhos de chain
+      if (line === '' || line.startsWith('Chain')) {
+        continue;
+      }
+
+      // Extrair informações das regras
+      const ruleMatch = line.match(/^\s*(\d+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([\w.:]+)\s+([\w.:]+)/);
+      if (ruleMatch) {
+        const rule = {
+          num: ruleMatch[1],
+          target: ruleMatch[2],
+          prot: ruleMatch[3],
+          opt: ruleMatch[4],
+          source: ruleMatch[5],
+          destination: ruleMatch[6]
+        };
+        rules.push(rule);
+      }
+    }
+    return rules;
+  }
 };

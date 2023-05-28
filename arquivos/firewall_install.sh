@@ -15,5 +15,6 @@ else
     sudo echo "$PUBLIC_KEY" | sudo tee -a /home/$USER_FIREWALL/.ssh/authorized_keys
 fi
 
-sudo echo "$USER_FIREWALL ALL=(ALL) NOPASSWD:/usr/sbin/ufw *" | sudo tee -a /etc/sudoers
-sudo echo "$USER_FIREWALL ALL=(ALL) NOPASSWD:/usr/sbin/iptables *" | sudo tee -a /etc/sudoers
+sudo echo "$USER_FIREWALL ALL=(ALL) NOPASSWD: /usr/sbin/ufw" | sudo tee -a /etc/sudoers
+sudo echo "$USER_FIREWALL ALL=(ALL) NOPASSWD: /usr/sbin/iptables *" | sudo tee -a /etc/sudoers
+sudo echo "$USER_FIREWALL ALL=(ALL) NOPASSWD: /sbin/iptables-save " | sudo tee -a /etc/sudoers
