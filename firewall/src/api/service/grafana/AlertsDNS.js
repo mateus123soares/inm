@@ -4,13 +4,13 @@ const fs = require('fs');
 module.exports = {
 
     async parseAlerts(alertMessage) {
-        regex = /source_ip=([^,}]+).*?source_port=([^,}]+)/gm;
+        regex = /destination_ip=([^,}]+).*?source_port=([^,}]+)/gm;
         let results = [];
 
         while (match = regex.exec(alertMessage)) {
-            const source_ip = match[1];
+            const destination_ip = match[1];
             const source_port = match[2];
-            results.push({ source_ip, source_port });
+            results.push({ destination_ip, source_port });
         }
         return {
             code: 200,
@@ -39,7 +39,7 @@ module.exports = {
         dadosPersistidos.forEach((objPersistido) => {
             const objetoRecebido = dadosRecebidos.find(
                 (objRecebido) =>
-                    objRecebido.source_ip === objPersistido.source_ip &&
+                    objRecebido.destination_ip === objPersistido.destination_ip &&
                     objRecebido.source_port === objPersistido.source_port
             );
             if (objetoRecebido) {
@@ -56,7 +56,7 @@ module.exports = {
                 (obj) =>
                     !novosItens.some(
                         (dado) =>
-                            dado.source_ip === obj.source_ip &&
+                            dado.destination_ip === obj.destination_ip &&
                             dado.source_port === obj.source_port
                     )
             )
@@ -67,7 +67,7 @@ module.exports = {
             console.log('Dados salvos com sucesso!');
         });
 
-        const response = dadosRecebidos.filter(itemB => !dadosPersistidos.some(itemA => itemA.source_ip === itemB.source_ip && itemA.source_port === itemB.source_port));
+        const response = dadosRecebidos.filter(itemB => !dadosPersistidos.some(itemA => itemA.destination_ip === itemB.destination_ip && itemA.source_port === itemB.source_port));
         // Passo 5: retornar os novos itens e os itens removidos
         return { response, itensRemovidos };
     }

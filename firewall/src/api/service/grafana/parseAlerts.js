@@ -13,7 +13,19 @@ module.exports = {
                 case "Source Connections TCPUDP":
                     const response = await alertsTCP.filtrarNovosItens((await alertsTCP.parseAlerts(element.value)).results)
                     response.response.forEach(async function (element) {
-                        dropRulesIpService.dropRulesIp({ "ip": element.source_ip })
+                        console.log(element)
+                        dropRulesIpService.dropRulesIp({
+                            "rule": {
+                                "description": "Regra Gerada automaticamente pela API",
+                                "action": "pass",
+                                "direction": "in",
+                                "source_net": `${element.destination_ip}`,
+                                "destination_net": "any",
+                                "protocol": `${element.network_transport.toUpperCase()}`,
+                                "interface ": "lan,wan",
+                                "log": "1",
+                            }
+                        })
                     });
                     break;
                 default:
@@ -25,3 +37,7 @@ module.exports = {
         };
     },
 };
+
+{
+
+}

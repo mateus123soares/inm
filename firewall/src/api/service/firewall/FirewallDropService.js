@@ -1,74 +1,39 @@
 const fs = require('fs');
 const message = require('../../../constants/messages');
-const execCommand = require("./FirewallExecRule")
+const axios = require("axios")
+const https = require("https")
 
 module.exports = {
 
   async dropRulesIp(rule) {
+    console.log("oidfaskjfdsdjklfhsdjklfh")
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+    });
+
+    var options = {
+      method: 'POST',
+      url: 'https://192.168.56.117/api/firewall/filter/addRule',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic TUEvdmZaVEcrYlRjOWJXM1lhSUd0cG9NZzFMU3ZnSmFzcVlEaVg2S0hSa3RnWTRIS284eHAwbkNjTVBxWnR0bmF5cW5ZRGNLd2NqV1p2WEI6NnJXOG42YWJsdkIyOTlXUGUrUFpaTUJ2RnQ0bVJmejRRelRiczdTV0lxaVFoVnhKRktmWENTUVczejR2c0p5ZE1DdkIzTzUxbWZMczhGY0s='
+      },
+      data: rule,
+      httpsAgent: agent
+    };
+
     try {
-      const BLOCK_THIS_IP = rule.ip;
-      const content = `iptables -A INPUT -s "${BLOCK_THIS_IP}" -j DROP\n`;
-
-      fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
-      await execCommand.execRule(content)
-    } catch (err) {
-      console.error(err);
+      const response = await axios.request(options);
+      //console.log(response)
+      return ({
+        status: response.status,
+        data: response.data
+      })
     }
-    return { status: message.sucessRules };
-  },
-
-  async dropRulesPort(rule) {
-    try {
-      const BLOCK_THIS_IP = rule.port;
-      const content = `iptables -A OUTPUT -p tcp --dport ${BLOCK_THIS_IP} -j DROP\n`;
-
-      fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
-      await execCommand.execRule(content)
-    } catch (err) {
-      console.error(err);
+    catch (error) {
+      console.log(error)
     }
-    return { status: message.sucessRules };
-  },
 
-  async dropRulesRangePort(rule) {
-    try {
-      const BLOCK_THIS_IP = rule.ip;
-      const BLOCK_THIS_PORT = rule.port;
-      const content = `iptables -A OUTPUT -p tcp -d ${BLOCK_THIS_IP} --dport ${BLOCK_THIS_PORT} -j DROP\n`;
 
-      fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
-      await execCommand.execRule(content)
-    } catch (err) {
-      console.error(err);
-    }
-    return { status: message.sucessRules };
-  },
-
-  async dropRulesMac(rule) {
-    try {
-      const BLOCK_THIS_MAC = rule.mac;
-      const content = `iptables -A INPUT -m mac --mac-source ${BLOCK_THIS_MAC} -j DROP\n`;
-
-      fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
-      await execCommand.execRule(content)
-    } catch (err) {
-      console.error(err);
-    }
-    return { status: message.sucessRules };
-  },
-
-  async dropRulesInterface(rule) {
-    try {
-      const BLOCK_THIS_INTERFACE = rule.interface;
-      const BLOCK_THIS_IP = rule.ip;
-      const content = `iptables -A INPUT -i ${BLOCK_THIS_INTERFACE} -s ${BLOCK_THIS_IP} -j DROP\n`;
-
-      fs.writeFileSync(process.env.PATH_RULES, content, { flag: 'a+' });
-      await execCommand.execRule(content)
-    } catch (err) {
-      console.error(err);
-    }
-    return { status: message.sucessRules };
-  },
-
-};
+  }
+}

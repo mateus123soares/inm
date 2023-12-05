@@ -4,13 +4,13 @@ const fs = require('fs');
 module.exports = {
 
     async parseAlerts(alertMessage) {
-        regex = /network_transport=([^,}]+).*?source_ip=([^,}]+)/gm;
+        regex = /destination_ip=([^,}]+), network_transport=([^,}]+).*?/gm;
         let results = [];
 
         while (match = regex.exec(alertMessage)) {
-            const network_transport = match[1];
-            const source_ip = match[2];
-            results.push({ network_transport, source_ip });
+            const network_transport = match[2];
+            const destination_ip = match[1];
+            results.push({ network_transport, destination_ip });
         }
         return {
             code: 200,
@@ -40,7 +40,7 @@ module.exports = {
             const objetoRecebido = dadosRecebidos.find(
                 (objRecebido) =>
                     objRecebido.network_transport === objPersistido.network_transport &&
-                    objRecebido.source_ip === objPersistido.source_ip
+                    objRecebido.destination_ip === objPersistido.destination_ip
             );
             if (objetoRecebido) {
                 novosItens.push(objetoRecebido)
@@ -57,7 +57,7 @@ module.exports = {
                     !novosItens.some(
                         (dado) =>
                             dado.network_transport === obj.network_transport &&
-                            dado.source_ip === obj.source_ip
+                            dado.destination_ip === obj.destination_ip
                     )
             )
         );
@@ -67,7 +67,7 @@ module.exports = {
             console.log('Dados salvos com sucesso!');
         });
 
-        const response = dadosRecebidos.filter(itemB => !dadosPersistidos.some(itemA => itemA.network_transport === itemB.network_transport && itemA.source_ip === itemB.source_ip));
+        const response = dadosRecebidos.filter(itemB => !dadosPersistidos.some(itemA => itemA.destination_ip === itemB.destination_ip && itemA.network_transport === itemB.network_transport));
         // Passo 5: retornar os novos itens e os itens removidos
         return { response, itensRemovidos };
     }

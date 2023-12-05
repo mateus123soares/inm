@@ -114,7 +114,7 @@ module.exports = {
                 "uid": "cNtiXlP4k"
               },
               "editorMode": "builder",
-              "expr": "count by(source_ip, network_transport, destination_ip) (tcp_udp_connections)",
+              "expr": "count by(destination_ip, network_transport, destination_ip) (tcp_udp_connections)",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"
@@ -298,7 +298,7 @@ module.exports = {
                 "uid": "cNtiXlP4k"
               },
               "editorMode": "builder",
-              "expr": "sum by(source_ip, source_port) (dns_queries)",
+              "expr": "sum by(destination_ip, source_port) (dns_queries)",
               "legendFormat": "__auto",
               "range": true,
               "refId": "A"

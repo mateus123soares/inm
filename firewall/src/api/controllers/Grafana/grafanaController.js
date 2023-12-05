@@ -37,7 +37,7 @@ module.exports = {
     if (matches.length === 0) {
       return res.status(500).json({ "error": "Falha ao executar o parser" });
     }
-
+    console.log(matches)
     const response = await parseAlerts.parseAlerts(matches);
 
     if (response.code == 200) {
