@@ -27,7 +27,7 @@ app.use(bodyparser.json());
 
 // Cria Webhook para API
 contact.getAlerts()
-contact.createDashboard()
+//contact.createDashboard()
 
 // Configurando as rotas
 

@@ -14,8 +14,8 @@ module.exports = {
       ip: req.body.ip,
       interface: req.body.interface
     };
-    const status = await ZabbixHostResource.createNewHost(data);
 
+    const status = await ZabbixHostResource.createNewHost(data);
     if (status.code == 200) {
       const statusDashboard = await GrafanaCreateDashboardResource.createDashboard(data);
       if (statusDashboard != 200) {
@@ -24,7 +24,6 @@ module.exports = {
     }
 
     return res.status(status.code).json(status);
-
   },
   async getHost(req, res) {
     const data = {

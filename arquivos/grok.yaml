@@ -1,0 +1,56 @@
+global:
+  config_version: 3
+input:
+  type: file
+  paths:
+    - /opt/zeek/logs/current/conn.log
+    - /opt/zeek/logs/current/dns.log
+    - /var/log/status_servicos.log
+  readall: true # Read from the beginning of the file? False means we start at the end of the file and read only new lines.
+imports:
+- type: grok_patterns
+  dir: ./patterns
+grok_patterns:
+- 'EXIM_MESSAGE [a-zA-Z ]*'
+metrics:
+- type: counter
+  name: tcp_udp_connections
+  help: TCP/UDP/ICMP connections.
+  match: '%{NUMBER:timestamp}\t%{NOTSPACE:session_id}\t%{IP:source_ip}\t%{INT:source_port:int}\t%{IP:destination_ip}\t%{INT:destination_port:int}\t%{WORD:network_transport}'
+  path: /opt/zeek/logs/current/conn.log
+  labels:
+    logfile: '{{base .logfile}}'
+    source_ip: '{{.source_ip}}'
+    source_port:  '{{.source_port}}'
+    destination_ip: '{{.destination_ip}}'
+    destination_port: '{{.destination_port}}'
+    network_transport: '{{.network_transport}}'
+    timestamp: '{{.timestamp}}'
+- type: counter
+  name: dns_queries
+  help: DNS Queries.
+  match: '%{NUMBER:timestamp}\t%{NOTSPACE:session_id}\t%{IP:source_ip}\t%{INT:source_port:int}\t%{IP:destination_ip}\t%{INT:destination_port:int}\t%{WORD:network_transport}\t(?:-|%{INT:trans_id:int})\t(?:-|%{WORD:rtt})\t(?:-|%{NOTSPACE:query})'
+  path: /opt/zeek/logs/current/dns.log
+  labels:
+    logfile: '{{base .logfile}}'
+    source_ip: '{{.source_ip}}'
+    source_port:  '{{.source_port}}'
+    destination_ip: '{{.destination_ip}}'
+    destination_port: '{{.destination_port}}'
+    network_transport: '{{.network_transport}}'
+    rtt: '{{.network_transport}}'
+    query: '{{.query}}'
+    trans_id: '{{.trans_id}}'
+    timestamp: '{{.timestamp}}'
+- type: gauge
+  name: services_status
+  help: Verifica os Serviços em Execução.
+  match: '{"Service":"%{DATA:service}","Status":"%{NUMBER:status:int}"}'
+  path: /var/log/status_servicos.log
+  value: '{{.status}}'
+  labels:
+    Service: '{{.service}}'
+    Status: '{{.status}}'
+server:
+  protocol: http
+  port: 9144

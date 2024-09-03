@@ -11,7 +11,7 @@ module.exports = {
       data: {
         jsonrpc: '2.0',
         method: 'user.login',
-        params: { user: `${zabbixUsername}`, password: `${zabbixpassword}` },
+        params: { "username": `${zabbixUsername}`, "password": `${zabbixpassword}` },
         id: 1,
         auth: null,
       },

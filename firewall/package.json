@@ -15,7 +15,10 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^6.6.6",
     "helmet": "^3.22.0",
+    "jest": "^29.7.0",
     "morgan": "^1.10.0",
     "node-schedule": "^2.1.0",
     "winston": "^3.3.3"
@@ -23,6 +26,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@faker-js/faker": "^8.4.1",
     "commitizen": "^1.0.4",
     "cz-conventional-changelog": "^3.0.1",
     "eslint": "^7.15.0",
@@ -32,7 +36,7 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --setupFiles dotenv/config",
     "start": "nodemon src/server.js",
     "commit": "git-cz"
   },

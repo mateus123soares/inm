@@ -7,4 +7,6 @@ module.exports = {
   grafanaHost: process.env.GRAFANA_HOST,
   grafanaUser: process.env.GRAFANA_USER,
   grafanaPassword: process.env.GRAFANA_PASSWORD,
+  apiHost: process.env.API_HOST,
+  apiPort: process.env.PORT,
 };

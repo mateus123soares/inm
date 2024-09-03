@@ -30,15 +30,15 @@ echo -e "${GREEN}Realizando o download e instalacao do Zabbix [0/3] ${ENDCOLOR}"
 
 echo -e "${YELLOW}Realizando o download [1/3] ${ENDCOLOR}"
 
-sudo wget https://repo.zabbix.com/zabbix/5.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_5.4-1+ubuntu20.04_all.deb
+sudo wget https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
 
 echo -e "${YELLOW}Instalando software [2/3] ${ENDCOLOR}"
 
-sudo dpkg -i zabbix-release_5.4-1+ubuntu20.04_all.deb
+sudo dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb
 
 echo -e "${YELLOW}Removendo arquivos [3/3] ${ENDCOLOR}"
 
-sudo rm -f zabbix-release_5.4-1+ubuntu20.04_all.deb
+sudo rm -f zabbix-release_6.4-1+ubuntu22.04_all.deb
 
 echo -e "${GREEN}Processo finalizado com sucesso.${ENDCOLOR}"
 
@@ -72,14 +72,16 @@ sudo mysql -uroot -e "create database $DBName character set utf8 collate utf8_bi
 
 echo -e "${YELLOW}Criando usuarios no banco dados [2/4] ${ENDCOLOR}"
 
-sudo mysql -uroot -e "create user '$DBUser'@'localhost' identified by '$DBPassword';"
-sudo mysql -uroot -e "grant all privileges on $DBName.* to '$DBUser'@'localhost';"
+sudo mysql -uroot -e "create user '$DBUser'@'%' identified by '$DBPassword';"
+sudo mysql -uroot -e "grant all privileges on $DBName.* to '$DBUser'@'%';"
 sudo mysql -uroot -e "create user 'grafana'@'%' identified by '$DBPassword';"
 sudo mysql -uroot -e "grant all privileges on $DBName.* to 'grafana'@'%';"
+sudo mysql -uroot -e "set global log_bin_trust_function_creators = 1;"
 
 echo -e "${YELLOW}Importanto tabelas do zabbix para o Mysql [3/4] ${ENDCOLOR}"
 
-zcat /usr/share/doc/zabbix-sql-scripts/mysql/create.sql.gz | mysql -u $DBUser -p$DBPassword $DBName
+zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -u$DBUser -p$DBPassword $DBName
+sudo mysql -uroot -e "set global log_bin_trust_function_creators = 0;"
 
 echo -e "${YELLOW}Configurando conexao do banco no zabbix [4/4] ${ENDCOLOR}"
 
@@ -90,3 +92,6 @@ sudo sed "/DBHost=localhost/a DBHost=$DBHost" -i /etc/zabbix/zabbix_server.conf
 sudo sed "/DBPassword=/a DBPassword=$DBPassword" -i /etc/zabbix/zabbix_server.conf
 
 sudo sed s/DBName=zabbix/DBName=$DBName/g -i /etc/zabbix/zabbix_server.conf
+
+sudo systemctl restart zabbix-server zabbix-agent apache2
+sudo systemctl enable zabbix-server zabbix-agent apache2 

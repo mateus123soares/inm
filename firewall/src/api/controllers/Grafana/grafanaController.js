@@ -18,6 +18,7 @@ module.exports = {
     let regex = /Value:\s\[(.*?)\][\s\S]*?Labels:\n([\s\S]*?)(?=\n\n|$)/g;
     let matches = [];
     let match;
+    console.log("Chegou Alerta")
 
     while ((match = regex.exec(req.body.message)) !== null) {
       let value = match[1];
@@ -37,7 +38,6 @@ module.exports = {
     if (matches.length === 0) {
       return res.status(500).json({ "error": "Falha ao executar o parser" });
     }
-    console.log(matches)
     const response = await parseAlerts.parseAlerts(matches);
 
     if (response.code == 200) {

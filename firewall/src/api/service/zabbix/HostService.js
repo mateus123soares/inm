@@ -44,14 +44,14 @@ module.exports = {
     if (Object.keys(responseHostGet.data.result).length > 0) {
       return {
         code: 200,
-        message: dashboardExists,
+        message: responseHostGet.data.result,
         result: true,
       };
     }
     else {
       return {
         code: 200,
-        message: dashboardExists,
+        message: "Dashboard não encontrado",
         result: false,
       };
     }
@@ -112,6 +112,7 @@ module.exports = {
 
       throw responseHostCreate;
     } catch (error) {
+      console.log(error)
       logger.error(hostCreateFail, { label: 'host-service' });
       return {
         code: 400,
