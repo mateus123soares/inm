@@ -14,35 +14,27 @@ module.exports = {
   },
 
   async reciveAlert(req, res) {
+    let alarmsList = [];
 
-    let regex = /Value:\s\[(.*?)\][\s\S]*?Labels:\n([\s\S]*?)(?=\n\n|$)/g;
-    let matches = [];
-    let match;
-    console.log("Chegou Alerta")
+    req.body.alerts.map(alert => {
+      const ipPattern = /destination_ip=(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g;
+      const matches = alert.valueString.match(ipPattern);
+      let destinationIps = []
+      if (matches) {
+        destinationIps = matches.map(match => match.split('=')[1]);
+      } else {
+        console.log('Nenhum IP encontrado.');
+      }
+      alarmsList.push({"alertname": req.body.commonLabels.alertname,
+        "destination_ip": destinationIps[0] });
+    })
 
-    while ((match = regex.exec(req.body.message)) !== null) {
-      let value = match[1];
-      let labelsString = match[2];
-      let labels = labelsString.split('\n').map(label => {
-        const keyValueMatch = label.match(/ - (.*) = (.*)/);
-        if (keyValueMatch) {
-          const key = keyValueMatch[1].trim();
-          const value = keyValueMatch[2].trim();
-          return { [key]: value };
-        }
-        return null;
-      }).filter(label => label !== null);
-      matches.push({ value, labels });
-    }
-
-    if (matches.length === 0) {
-      return res.status(500).json({ "error": "Falha ao executar o parser" });
-    }
-    const response = await parseAlerts.parseAlerts(matches);
+    const response = await parseAlerts.parseAlerts(alarmsList);
 
     if (response.code == 200) {
       return res.status(200).json("Realizado a criação de alertas");
     }
+
     return res.status(503);
   },
 };

@@ -48,7 +48,7 @@ module.exports = {
       return {
         code: 400,
         message: dashboardCreateFail,
-        error: { message: error.message, name: error.name },
+        error: { message: error, name: error.name },
       };
     }
   },
