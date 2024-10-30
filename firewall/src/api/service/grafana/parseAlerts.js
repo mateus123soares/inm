@@ -6,29 +6,29 @@ module.exports = {
   async parseAlerts(matches) {
     matches.forEach(async (element) => {
       switch (element.alertname) {
-        case 'Total TCP/UDP Destination Requests':
+        case 'Total TCP/UDP Source Requests':
           dropRulesIpService.dropRulesIp({
             rule: {
-              description: `${element.alertname}: ${element.destination_ip}`,
+              description: `${element.alertname}: ${element.ip}`,
               action: 'block',
-              direction: 'out',
-              source_net: 'any',
-              destination_net: `${element.destination_ip}`,
-              protocol: 'TCP',
+              direction: 'in',
+              source_net: `${element.ip}`,
+              destination_net: 'any',
+              protocol: 'any',
               interface: 'lan,wan',
               log: '1',
             },
           });
           break;
-        case 'Total TCP/UDP Source Requests':
+        case 'Total TCP/UDP Destination Requests':
           dropRulesIpService.dropRulesIp({
             rule: {
-              description: `${element.alertname}: ${element.destination_ip}`,
+              description: `${element.alertname}: ${element.ip}`,
               action: 'block',
-              direction: 'out',
-              source_net: 'any',
-              destination_net: `${element.destination_ip}`,
-              protocol: 'TCP',
+              direction: 'in',
+              source_net: `${element.ip}`,
+              destination_net: 'any',
+              protocol: 'any',
               interface: 'lan,wan',
               log: '1',
             },

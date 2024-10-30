@@ -15,7 +15,6 @@ module.exports = {
 
   async reciveAlert(req, res) {
     const alarmsList = [];
-    console.log(req.body);
 
     if (req.body.status == 'resolved') {
       return res.status(200);
@@ -45,15 +44,15 @@ module.exports = {
           return res.status(503);
       }
 
-      let destinationIps = [];
+      let ips = [];
       if (matches) {
-        destinationIps = matches.map((match) => match.split('=')[1]);
+        ips = matches.map((match) => match.split('=')[1]);
       } else {
         console.log('Nenhum IP encontrado.');
       }
       alarmsList.push({
         alertname: req.body.commonLabels.alertname,
-        destination_ip: destinationIps[0],
+        ip: ips[0],
       });
     });
 
