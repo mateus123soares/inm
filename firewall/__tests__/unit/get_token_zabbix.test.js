@@ -13,7 +13,6 @@ describe('Autenticação', () => {
   });
 });
 
-// A rota / deve retornar um token de acesso
 describe('Obtem valores de um Host', () => {
   it('Deve Obter Valores de um HOST', async () => {
     const response = await host.getHost({ hostname: 'Zabbix server' });
@@ -22,7 +21,7 @@ describe('Obtem valores de um Host', () => {
   });
 });
 
-// A rota / deve retornar um token de acesso
+// A rota deve criar um novo host no zabbix
 describe('Criar Host', () => {
   it('Deve Criar um host', async () => {
     const response = await host.createNewHost({
